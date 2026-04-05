@@ -96,6 +96,13 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f4f2;color:#111;min-h
 .ae-price{font-size:13px;font-weight:700;margin-top:8px;color:#111}
 .pf{padding:16px 44px;border-top:1px solid #ddd;text-align:center;font-size:11px;color:#aaa;font-family:Georgia,serif}
 .toast{position:fixed;bottom:24px;right:24px;background:#111;color:#fff;padding:10px 18px;border-radius:8px;font-size:13px;z-index:9999;display:none;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+.import-card{background:#fafafa;border:1px solid #e0e0e0;border-radius:10px;padding:14px;margin-bottom:12px}
+.import-card h4{font-size:13px;font-weight:600;margin-bottom:10px;color:#555}
+.import-card .ic-grid{display:grid;grid-template-columns:80px 1fr;gap:12px;align-items:start}
+.import-card img{width:80px;height:60px;object-fit:cover;border-radius:6px;border:1px solid #ddd}
+.import-card .ic-fields{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.import-card input{padding:6px 9px;border:1px solid #ddd;border-radius:6px;font-size:12px;width:100%;font-family:inherit;background:#fff}
+.import-card .ic-full{grid-column:1/-1}
 .spinner{display:inline-block;width:13px;height:13px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px}
 @keyframes spin{to{transform:rotate(360deg)}}
 @media print{
@@ -166,7 +173,10 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f4f2;color:#111;min-h
   <div class="view" id="view-artworks">
     <div class="list-header">
       <span id="admin-count">Caricamento...</span>
-      <button class="btn btn-primary no-print" onclick="openModal(null)">+ Aggiungi opera</button>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn no-print" onclick="openImportModal()">📄 Importa da PDF</button>
+        <button class="btn btn-primary no-print" onclick="openModal(null)">+ Aggiungi opera</button>
+      </div>
     </div>
     <div class="filter-bar no-print">
       <input id="search-q" placeholder="🔍  Cerca titolo o artista..." oninput="renderAdminList()">
@@ -204,7 +214,14 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f4f2;color:#111;min-h
       <div class="fg"><label>Profondità (cm)</label><input id="f-d" type="number" placeholder="3" step="0.1"></div>
       <div class="fg"><label>Tecnica / Materiale</label><input id="f-tech" placeholder="es. Stampa fine-art"></div>
       <div class="fg full"><label>Foto dell'opera</label>
-        <input id="f-photo" type="file" accept="image/*" onchange="previewImg(this,'f-photo-prev','f-rm-ph','pending')">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px">
+          <label style="cursor:pointer;padding:7px 12px;border:1px solid #ccc;border-radius:7px;font-size:12px;background:#fff;display:inline-block">
+            📁 Scegli file <input type="file" accept="image/*" style="display:none" onchange="previewImg(this,'f-photo-prev','f-rm-ph','pending')">
+          </label>
+          <label style="cursor:pointer;padding:7px 12px;border:1px solid #ccc;border-radius:7px;font-size:12px;background:#fff;display:inline-block">
+            📷 Scatta foto <input type="file" accept="image/*" capture="environment" style="display:none" onchange="previewImg(this,'f-photo-prev','f-rm-ph','pending')">
+          </label>
+        </div>
         <div class="photo-wrap"><img id="f-photo-prev"><span class="rm-link" id="f-rm-ph" onclick="rmPhoto()">✕ Rimuovi foto</span></div>
       </div>
       <div class="fg full"><label>Note / Descrizione</label><textarea id="f-notes" placeholder="Provenienza, tiratura, note espositive..."></textarea></div>
@@ -238,6 +255,29 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f4f2;color:#111;min-h
 
 <div class="toast" id="toast"></div>
 
+<!-- IMPORT PDF MODAL -->
+<div class="overlay" id="import-overlay" onclick="if(event.target===this)closeImportModal()">
+  <div class="modal" style="max-width:700px">
+    <h2>Importa opere da PDF</h2>
+    <div id="import-step-1">
+      <p style="font-size:13px;color:#777;margin-bottom:16px">Carica un PDF con una o più opere. Il sistema estrarrà automaticamente titolo, artista, dimensioni, prezzo e foto.</p>
+      <div class="fg full"><label>Seleziona PDF</label><input id="pdf-file-input" type="file" accept="application/pdf" onchange="processPDF(this)"></div>
+      <div id="pdf-loading" style="display:none;text-align:center;padding:30px;color:#888">
+        <span class="spinner" style="border-color:#ccc;border-top-color:#111"></span> Analisi del PDF in corso...
+      </div>
+    </div>
+    <div id="import-step-2" style="display:none">
+      <p style="font-size:13px;color:#777;margin-bottom:14px">Controlla i dati estratti e modifica se necessario, poi clicca <strong>Salva tutte</strong>.</p>
+      <div id="import-preview"></div>
+      <div class="modal-footer">
+        <button class="btn" onclick="closeImportModal()">Annulla</button>
+        <button class="btn btn-primary" id="import-save-btn" onclick="saveImportedArtworks()">Salva tutte le opere</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
@@ -596,6 +636,156 @@ function previewImg(input,prevId,rmId,target){
     img.src=e.target.result;
   };
   reader.readAsDataURL(file);
+}
+
+/* ---- PDF IMPORT ---- */
+let importedArtworks = [];
+
+function openImportModal(){
+  document.getElementById('import-overlay').classList.add('open');
+  document.getElementById('import-step-1').style.display='block';
+  document.getElementById('import-step-2').style.display='none';
+  document.getElementById('pdf-file-input').value='';
+  document.getElementById('pdf-loading').style.display='none';
+  importedArtworks=[];
+}
+function closeImportModal(){ document.getElementById('import-overlay').classList.remove('open'); }
+
+async function processPDF(input){
+  const file = input.files[0]; if(!file) return;
+  document.getElementById('pdf-loading').style.display='block';
+  document.getElementById('pdf-file-input').disabled=true;
+
+  try{
+    const arrayBuffer = await file.arrayBuffer();
+    const pdfjsLib = window['pdfjs-dist/build/pdf'];
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    const pdf = await pdfjsLib.getDocument({data: arrayBuffer}).promise;
+    importedArtworks = [];
+
+    for(let i=1; i<=pdf.numPages; i++){
+      const page = await pdf.getPage(i);
+      // Extract text
+      const tc = await page.getTextContent();
+      const lines = tc.items.map(x=>x.str.trim()).filter(Boolean);
+      const fullText = lines.join('
+');
+
+      // Render page to canvas
+      const vp = page.getViewport({scale:1.8});
+      const canvas = document.createElement('canvas');
+      canvas.width = vp.width; canvas.height = vp.height;
+      await page.render({canvasContext:canvas.getContext('2d'), viewport:vp}).promise;
+
+      // Crop image: skip header (~8%), take artwork photo area (~50%)
+      const cropTop = Math.round(vp.height * 0.08);
+      const cropH   = Math.round(vp.height * 0.50);
+      const imgCanvas = document.createElement('canvas');
+      imgCanvas.width = vp.width; imgCanvas.height = cropH;
+      imgCanvas.getContext('2d').drawImage(canvas, 0, cropTop, vp.width, cropH, 0, 0, vp.width, cropH);
+      const photoData = imgCanvas.toDataURL('image/jpeg', 0.85);
+
+      // Parse text fields
+      const artwork = parseArtworkFromLines(lines, fullText, photoData);
+      importedArtworks.push(artwork);
+    }
+
+    renderImportPreview();
+    document.getElementById('pdf-loading').style.display='none';
+    document.getElementById('import-step-1').style.display='none';
+    document.getElementById('import-step-2').style.display='block';
+  }catch(e){
+    document.getElementById('pdf-loading').style.display='none';
+    document.getElementById('pdf-file-input').disabled=false;
+    alert('Errore lettura PDF: '+e.message);
+  }
+}
+
+function parseArtworkFromLines(lines, fullText, photoData){
+  // Artist: first ALL-CAPS line that isn't an address/url/vat
+  const skipWords = ['IVA','WWW','INFO','EX','VIA','ITALY','THE PROJECT'];
+  let artistName = '';
+  for(const l of lines){
+    if(l === l.toUpperCase() && l.length > 4 && /[A-Z]/.test(l) && !skipWords.some(w=>l.includes(w)) && !/\d/.test(l)){
+      artistName = l.split(' ').map(w=>w.charAt(0)+w.slice(1).toLowerCase()).join(' ');
+      break;
+    }
+  }
+
+  // Dimensions: "150 x 110 cm"
+  let h='', b='', d='';
+  const dimMatch = fullText.match(/(\d+(?:[.,]\d+)?)\s*[xX×]\s*(\d+(?:[.,]\d+)?)\s*(?:[xX×]\s*(\d+(?:[.,]\d+)?)\s*)?cm/i);
+  if(dimMatch){ b=dimMatch[1]; h=dimMatch[2]; d=dimMatch[3]||''; }
+
+  // Price: "€ 8.000" or "¬ 8.000"
+  let price = '';
+  const priceMatch = fullText.match(/[€¬]\s*([\d.]+)(?:\+Iva)?/i);
+  if(priceMatch) price = priceMatch[1].replace(/\./g,'');
+
+  // Technique
+  let tech = '';
+  const techLine = lines.find(l=>l.toLowerCase().includes('stampa fine') || l.toLowerCase().includes('olio su') || l.toLowerCase().includes('acrilico') || l.toLowerCase().includes('tecnica mista') || l.toLowerCase().includes('tiratura'));
+  if(techLine) tech = techLine;
+
+  // Title: line just before the technique line (or before dimensions)
+  let title = '';
+  const techIdx = lines.findIndex(l=>l===techLine);
+  if(techIdx > 0) title = lines[techIdx-1];
+  // Clean up title (remove gallery refs)
+  if(title && (title.includes('Project Space') || title.includes('@') || title.includes('www') || title.includes('IVA'))) title='';
+
+  return { artistName, title, year:'', price, h, b, d, tech, notes:'', photoData };
+}
+
+function renderImportPreview(){
+  const el = document.getElementById('import-preview');
+  el.innerHTML = importedArtworks.map((a,i)=>`
+    <div class="import-card">
+      <h4>Pagina ${i+1}</h4>
+      <div class="ic-grid">
+        <img src="${a.photoData}" alt="">
+        <div class="ic-fields">
+          <div class="ic-full"><input placeholder="Titolo opera" value="${a.title||''}" oninput="importedArtworks[${i}].title=this.value"></div>
+          <input placeholder="Artista" value="${a.artistName||''}" oninput="importedArtworks[${i}].artistName=this.value">
+          <input placeholder="Anno" value="${a.year||''}" oninput="importedArtworks[${i}].year=this.value">
+          <input placeholder="Prezzo €" value="${a.price||''}" oninput="importedArtworks[${i}].price=this.value">
+          <input placeholder="Altezza cm" value="${a.h||''}" oninput="importedArtworks[${i}].h=this.value">
+          <input placeholder="Base cm" value="${a.b||''}" oninput="importedArtworks[${i}].b=this.value">
+          <input placeholder="Profondità cm" value="${a.d||''}" oninput="importedArtworks[${i}].d=this.value">
+          <div class="ic-full"><input placeholder="Tecnica" value="${a.tech||''}" oninput="importedArtworks[${i}].tech=this.value"></div>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+async function saveImportedArtworks(){
+  setBtnLoading('import-save-btn','Salvataggio...');
+  const maxO = artworks.length ? Math.max(...artworks.map(a=>a.sortOrder||0)) : 0;
+  try{
+    const batch = fdb.batch();
+    importedArtworks.forEach((a,i)=>{
+      const ref = fdb.collection('artworks').doc();
+      batch.set(ref,{
+        userId: me.uid,
+        artistName: a.artistName||'',
+        title: a.title||'',
+        year: a.year||'',
+        price: a.price||'',
+        h: a.h||'', b: a.b||'', d: a.d||'',
+        tech: a.tech||'', notes: a.notes||'',
+        photoData: a.photoData||'',
+        sortOrder: maxO + i + 1,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    });
+    await batch.commit();
+    toast(`${importedArtworks.length} opere importate ✓`);
+    closeImportModal();
+    await loadAll();
+  }catch(e){
+    alert('Errore salvataggio: '+e.message);
+  }
+  resetBtn('import-save-btn','Salva tutte le opere');
 }
 
 /* ---- HELPERS ---- */
