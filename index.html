@@ -216,13 +216,15 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f4f2;color:#111;min-h
       <div class="fg full"><label>Foto dell'opera</label>
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px">
           <label style="cursor:pointer;padding:7px 12px;border:1px solid #ccc;border-radius:7px;font-size:12px;background:#fff;display:inline-block">
-            📁 Scegli file <input type="file" accept="image/*" style="display:none" onchange="previewImg(this,'f-photo-prev','f-rm-ph','pending')">
+            &#128193; Scegli file
+            <input type="file" accept="image/*" style="display:none" onchange="previewImg(this,&quot;f-photo-prev&quot;,&quot;f-rm-ph&quot;,&quot;pending&quot;)">
           </label>
           <label style="cursor:pointer;padding:7px 12px;border:1px solid #ccc;border-radius:7px;font-size:12px;background:#fff;display:inline-block">
-            📷 Scatta foto <input type="file" accept="image/*" capture="environment" style="display:none" onchange="previewImg(this,'f-photo-prev','f-rm-ph','pending')">
+            &#128247; Scatta foto
+            <input type="file" accept="image/*" capture="environment" style="display:none" onchange="previewImg(this,&quot;f-photo-prev&quot;,&quot;f-rm-ph&quot;,&quot;pending&quot;)">
           </label>
         </div>
-        <div class="photo-wrap"><img id="f-photo-prev"><span class="rm-link" id="f-rm-ph" onclick="rmPhoto()">✕ Rimuovi foto</span></div>
+        <div class="photo-wrap"><img id="f-photo-prev"><span class="rm-link" id="f-rm-ph" onclick="rmPhoto()">&#10005; Rimuovi foto</span></div>
       </div>
       <div class="fg full"><label>Note / Descrizione</label><textarea id="f-notes" placeholder="Provenienza, tiratura, note espositive..."></textarea></div>
     </div>
@@ -668,8 +670,7 @@ async function processPDF(input){
       // Extract text
       const tc = await page.getTextContent();
       const lines = tc.items.map(x=>x.str.trim()).filter(Boolean);
-      const fullText = lines.join('
-');
+      const fullText = lines.join('\n');
 
       // Render page to canvas
       const vp = page.getViewport({scale:1.8});
