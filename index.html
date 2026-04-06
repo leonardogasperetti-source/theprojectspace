@@ -519,7 +519,6 @@ function openModal(id){
   sv('f-h',a?.h||''); sv('f-b',a?.b||''); sv('f-d',a?.d||'');
   sv('f-tech',a?.tech||''); sv('f-notes',a?.notes||'');
   if(myProfile?.role==='admin') sv('f-artist-name', id ? (a?.artistName||'') : '');
-  document.getElementById('f-photo').value='';
   const prev=document.getElementById('f-photo-prev'),rm=document.getElementById('f-rm-ph');
   if(a?.photoData){prev.src=a.photoData;prev.style.display='block';rm.style.display='inline';}
   else{prev.style.display='none';rm.style.display='none';}
@@ -527,7 +526,7 @@ function openModal(id){
   setTimeout(()=>document.getElementById('f-title').focus(),120);
 }
 function closeModal(){document.getElementById('artwork-overlay').classList.remove('open');}
-function rmPhoto(){pendingPhoto='';document.getElementById('f-photo-prev').style.display='none';document.getElementById('f-rm-ph').style.display='none';document.getElementById('f-photo').value='';}
+function rmPhoto(){pendingPhoto='';document.getElementById('f-photo-prev').style.display='none';document.getElementById('f-rm-ph').style.display='none';}
 
 async function saveArtwork(){
   setBtnLoading('save-btn','Salvataggio...');
