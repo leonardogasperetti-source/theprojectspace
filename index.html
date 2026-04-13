@@ -459,6 +459,7 @@ function cardHTML(a,i,tot){
       <div class="action-btns">
         <button class="btn btn-sm" onclick="openModal('${a.id}')">✏ Modifica</button>
         <button class="btn btn-sm btn-dup" onclick="dupAw('${a.id}')">⧉ Duplica</button>
+        <button class="btn btn-sm" onclick="printSingle('${a.id}')" title="Stampa scheda">🖨</button>
         <button class="btn btn-sm btn-danger" onclick="delAw('${a.id}')">✕</button>
       </div>
     </div>
@@ -786,6 +787,72 @@ async function saveImportedArtworks(){
     alert('Errore salvataggio: '+e.message);
   }
   resetBtn('import-save-btn','Salva tutte le opere');
+}
+
+/* ---- PRINT SINGLE ---- */
+function printSingle(id){
+  const a = artworks.find(x=>x.id===id); if(!a) return;
+  const dims = [a.h?'H '+a.h:null,a.b?'B '+a.b:null,a.d?'P '+a.d:null].filter(Boolean).join(' × ');
+  const price = a.price ? '€ '+Number(a.price).toLocaleString('it-IT',{minimumFractionDigits:2,maximumFractionDigits:2}) : '';
+  const today = new Date().toLocaleDateString('it-IT',{year:'numeric',month:'long',day:'numeric'});
+  const win = window.open('','_blank','width=900,height=700');
+  win.document.write(`<!DOCTYPE html>
+<html lang="it"><head><meta charset="UTF-8"><title>${a.title||'Opera'}</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#fff;color:#111}
+  .page{max-width:794px;margin:0 auto;padding:40px 50px;min-height:297mm}
+  .header{border-bottom:2px solid #111;padding-bottom:16px;margin-bottom:30px;display:flex;justify-content:space-between;align-items:flex-end}
+  .gallery{font-size:13px;color:#555}
+  .gallery strong{display:block;font-size:16px;color:#111;font-weight:700;letter-spacing:.02em}
+  .date{font-size:11px;color:#aaa}
+  .artwork-img{width:100%;max-height:420px;object-fit:contain;background:#f8f8f8;display:block;margin-bottom:32px}
+  .no-img{width:100%;height:300px;background:#f2f2f2;display:flex;align-items:center;justify-content:center;color:#ccc;font-size:14px;margin-bottom:32px}
+  .info{border-top:1px solid #eee;padding-top:24px}
+  .title{font-size:28px;font-weight:400;font-style:italic;font-family:Georgia,serif;margin-bottom:6px}
+  .artist{font-size:16px;color:#333;margin-bottom:20px;font-weight:600}
+  .meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 40px;margin-bottom:24px}
+  .meta-item label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:#aaa;display:block;margin-bottom:3px}
+  .meta-item span{font-size:14px;color:#111}
+  .price-box{border-top:1px solid #eee;padding-top:20px;margin-top:8px}
+  .price-box label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#aaa;display:block;margin-bottom:4px}
+  .price-box span{font-size:26px;font-weight:700;color:#111}
+  .notes{margin-top:20px;font-size:13px;color:#666;font-style:italic;border-top:1px solid #eee;padding-top:16px}
+  .footer{position:fixed;bottom:20px;left:50px;right:50px;font-size:10px;color:#ccc;text-align:center;border-top:1px solid #eee;padding-top:8px}
+  @media print{
+    body{background:#fff}
+    .footer{position:fixed;bottom:10mm}
+    @page{size:A4 portrait;margin:15mm 12mm}
+  }
+</style></head>
+<body>
+<div class="page">
+  <div class="header">
+    <div class="gallery">
+      <strong>${hdr.title||'Catalogo Opere'}</strong>
+      ${hdr.subtitle||''}
+    </div>
+    <div class="date">${today}</div>
+  </div>
+  ${a.photoData
+    ? `<img class="artwork-img" src="${a.photoData}" alt="${a.title||''}">`
+    : `<div class="no-img">Nessuna immagine</div>`}
+  <div class="info">
+    <div class="title">${a.title||'Senza titolo'}</div>
+    <div class="artist">${a.artistName||''}</div>
+    <div class="meta-grid">
+      ${a.year?`<div class="meta-item"><label>Anno</label><span>${a.year}</span></div>`:''}
+      ${a.tech?`<div class="meta-item"><label>Tecnica</label><span>${a.tech}</span></div>`:''}
+      ${dims?`<div class="meta-item"><label>Dimensioni</label><span>${dims} cm</span></div>`:''}
+    </div>
+    ${price?`<div class="price-box"><label>Prezzo al pubblico</label><span>${price}</span></div>`:''}
+    ${a.notes?`<div class="notes">${a.notes}</div>`:''}
+  </div>
+  <div class="footer">${hdr.footer||''}</div>
+</div>
+<script>window.onload=()=>{window.print();}<\/script>
+</body></html>`);
+  win.document.close();
 }
 
 /* ---- HELPERS ---- */
