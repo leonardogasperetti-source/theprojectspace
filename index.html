@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https: data: blob:;">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Catalogo Opere — The Project Space</title>
+<title>Catalogo Opere ‚Äî The Project Space</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f4f2;color:#111;min-height:100vh}
@@ -129,7 +129,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f4f2;color:#111;min-h
     </div>
     <div id="login-form">
       <div class="fg"><label>Email</label><input id="li-email" type="email" placeholder="nome@esempio.it" onkeydown="if(event.key==='Enter')doLogin()"></div>
-      <div class="fg"><label>Password</label><input id="li-pass" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
+      <div class="fg"><label>Password</label><input id="li-pass" type="password" placeholder="‚Ä¢‚Ä¢‚Ä¢‚Ä¢‚Ä¢‚Ä¢‚Ä¢‚Ä¢" onkeydown="if(event.key==='Enter')doLogin()"></div>
       <button class="btn btn-primary btn-full" id="li-btn" onclick="doLogin()">Accedi</button>
       <p style="text-align:center;margin-top:10px"><a href="#" onclick="doResetPassword()" style="font-size:12px;color:#888;text-decoration:none">Password dimenticata?</a></p>
       <p class="msg-err" id="li-err"></p>
@@ -158,7 +158,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f4f2;color:#111;min-h
     <div class="topbar-right no-print">
       <button class="btn" id="btn-header" onclick="openHeaderModal()" style="display:none">Intestazione</button>
       <button class="btn" id="btn-export" onclick="exportHTML()" style="display:none">Esporta HTML</button>
-      <button class="btn btn-primary" id="btn-print" onclick="window.print()" style="display:none">🖨 Stampa</button>
+      <button class="btn btn-primary" id="btn-print" onclick="window.print()" style="display:none">üñ® Stampa</button>
       <button class="btn btn-sm" onclick="doLogout()">Esci</button>
     </div>
   </div>
@@ -175,12 +175,12 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f4f2;color:#111;min-h
     <div class="list-header">
       <span id="admin-count">Caricamento...</span>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn no-print" onclick="openImportModal()">📄 Importa da PDF</button>
+        <button class="btn no-print" onclick="openImportModal()">üìÑ Importa da PDF</button>
         <button class="btn btn-primary no-print" onclick="openModal(null)">+ Aggiungi opera</button>
       </div>
     </div>
     <div class="filter-bar no-print">
-      <input id="search-q" placeholder="🔍  Cerca titolo o artista..." oninput="renderAdminList()">
+      <input id="search-q" placeholder="üîç  Cerca titolo o artista..." oninput="renderAdminList()">
       <select id="filter-art" onchange="renderAdminList()"><option value="">Tutti gli artisti</option></select>
     </div>
     <div id="admin-list"></div>
@@ -193,9 +193,9 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f4f2;color:#111;min-h
 
   <div class="view" id="view-catalog">
     <div class="no-print" style="display:flex;justify-content:flex-end;gap:8px;margin-bottom:16px;flex-wrap:wrap">
-      <button class="btn" onclick="openHeaderModal()">Intestazione &amp; Piè</button>
+      <button class="btn" onclick="openHeaderModal()">Intestazione &amp; Pi√®</button>
       <button class="btn" onclick="exportHTML()">Esporta HTML</button>
-      <button class="btn btn-primary" onclick="window.print()">🖨 Stampa A4</button>
+      <button class="btn btn-primary" onclick="window.print()">üñ® Stampa A4</button>
     </div>
     <div id="preview-page"></div>
   </div>
@@ -209,10 +209,10 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f4f2;color:#111;min-h
       <div class="fg full"><label>Titolo dell'opera</label><input id="f-title" placeholder="es. Centauro a Pompei"></div>
       <div class="fg full" id="f-artist-wrap"><label>Nome artista</label><input id="f-artist-name" placeholder="Nome e cognome artista"></div>
       <div class="fg"><label>Anno</label><input id="f-year" type="number" placeholder="2024"></div>
-      <div class="fg"><label>Prezzo al pubblico (€)</label><input id="f-price" type="number" placeholder="8000" step="0.01"></div>
+      <div class="fg"><label>Prezzo al pubblico (‚Ç¨)</label><input id="f-price" type="number" placeholder="8000" step="0.01"></div>
       <div class="fg"><label>Altezza (cm)</label><input id="f-h" type="number" placeholder="110" step="0.1"></div>
       <div class="fg"><label>Base (cm)</label><input id="f-b" type="number" placeholder="150" step="0.1"></div>
-      <div class="fg"><label>Profondità (cm)</label><input id="f-d" type="number" placeholder="3" step="0.1"></div>
+      <div class="fg"><label>Profondit√† (cm)</label><input id="f-d" type="number" placeholder="3" step="0.1"></div>
       <div class="fg"><label>Tecnica / Materiale</label><input id="f-tech" placeholder="es. Stampa fine-art"></div>
       <div class="fg full"><label>Foto dell'opera</label>
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px">
@@ -239,15 +239,15 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f4f2;color:#111;min-h
 <!-- HEADER MODAL -->
 <div class="overlay" id="header-overlay" onclick="if(event.target===this)closeHeaderModal()">
   <div class="modal">
-    <h2>Intestazione &amp; Piè di pagina</h2>
+    <h2>Intestazione &amp; Pi√® di pagina</h2>
     <div class="form-grid">
       <div class="fg full"><label>Titolo catalogo</label><input id="hf-title" placeholder="es. Catalogo Opere 2025"></div>
       <div class="fg full"><label>Sottotitolo / Galleria</label><input id="hf-sub" placeholder="es. The Project Space, Pietrasanta"></div>
       <div class="fg full"><label>Logo</label>
         <input id="hf-logo" type="file" accept="image/*" onchange="previewImg(this,'hf-logo-prev','hf-rm-logo','logo')">
-        <div class="photo-wrap"><img id="hf-logo-prev"><span class="rm-link" id="hf-rm-logo" onclick="rmLogo()">✕ Rimuovi logo</span></div>
+        <div class="photo-wrap"><img id="hf-logo-prev"><span class="rm-link" id="hf-rm-logo" onclick="rmLogo()">‚úï Rimuovi logo</span></div>
       </div>
-      <div class="fg full"><label>Piè di pagina</label><textarea id="hf-footer" placeholder="© 2025 The Project Space – info@theprojectspace.it – www.theprojectspace.it"></textarea></div>
+      <div class="fg full"><label>Pi√® di pagina</label><textarea id="hf-footer" placeholder="¬© 2025 The Project Space ‚Äì info@theprojectspace.it ‚Äì www.theprojectspace.it"></textarea></div>
     </div>
     <div class="modal-footer">
       <button class="btn" onclick="closeHeaderModal()">Annulla</button>
@@ -263,7 +263,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f4f2;color:#111;min-h
   <div class="modal" style="max-width:700px">
     <h2>Importa opere da PDF</h2>
     <div id="import-step-1">
-      <p style="font-size:13px;color:#777;margin-bottom:16px">Carica un PDF con una o più opere. Il sistema estrarrà automaticamente titolo, artista, dimensioni, prezzo e foto.</p>
+      <p style="font-size:13px;color:#777;margin-bottom:16px">Carica un PDF con una o pi√π opere. Il sistema estrarr√† automaticamente titolo, artista, dimensioni, prezzo e foto.</p>
       <div class="fg full"><label>Seleziona PDF</label><input id="pdf-file-input" type="file" accept="application/pdf" onchange="processPDF(this)"></div>
       <div id="pdf-loading" style="display:none;text-align:center;padding:30px;color:#888">
         <span class="spinner" style="border-color:#ccc;border-top-color:#111"></span> Analisi del PDF in corso...
@@ -340,11 +340,11 @@ async function doSignup(){
       createdAt:firebase.firestore.FieldValue.serverTimestamp()
     });
     errEl.className='msg-ok';
-    errEl.textContent='✓ Account creato! Accesso in corso...';
+    errEl.textContent='‚úì Account creato! Accesso in corso...';
   }catch(e){
     errEl.className='msg-err';
     errEl.textContent = e.code==='auth/email-already-in-use'
-      ? 'Email già registrata — usa il tab Accedi.' : 'Errore: '+e.message;
+      ? 'Email gi√† registrata ‚Äî usa il tab Accedi.' : 'Errore: '+e.message;
     resetBtn('su-btn','Crea account');
   }
 }
@@ -357,7 +357,7 @@ async function doResetPassword(){
     set('li-err','');
     const el=document.getElementById('li-err');
     el.className='msg-ok';
-    el.textContent='✓ Email inviata! Controlla la tua casella di posta.';
+    el.textContent='‚úì Email inviata! Controlla la tua casella di posta.';
   }catch(e){
     set('li-err', e.code==='auth/user-not-found'
       ? 'Nessun account trovato con questa email.'
@@ -438,8 +438,8 @@ async function loadAll(){
 }
 
 /* ---- RENDER ---- */
-const fmtP=p=>'€ '+Number(p).toLocaleString('it-IT',{minimumFractionDigits:2,maximumFractionDigits:2});
-const dims=a=>[a.h?'H '+a.h:null,a.b?'B '+a.b:null,a.d?'P '+a.d:null].filter(Boolean).join(' × ');
+const fmtP=p=>'‚Ç¨ '+Number(p).toLocaleString('it-IT',{minimumFractionDigits:2,maximumFractionDigits:2});
+const dims=a=>[a.h?'H '+a.h:null,a.b?'B '+a.b:null,a.d?'P '+a.d:null].filter(Boolean).join(' √ó ');
 
 function cardHTML(a,i,tot){
   return `<div class="artwork-card">
@@ -447,21 +447,21 @@ function cardHTML(a,i,tot){
       `<div class="thumb-ph">Nessuna<br>foto</div>`}
     <div class="card-info">
       <h3>${a.title||'<em>Senza titolo</em>'}</h3>
-      <p>${a.artistName||''}${a.year?' · '+a.year:''}</p>
+      <p>${a.artistName||''}${a.year?' ¬∑ '+a.year:''}</p>
       ${a.tech?`<p style="font-style:italic;color:#aaa">${a.tech}</p>`:''}
       ${dims(a)?`<p>${dims(a)} cm</p>`:''}
       ${a.price?`<p class="card-price">${fmtP(a.price)}</p>`:''}
     </div>
     <div class="card-controls no-print">
       <div class="order-btns">
-        <button class="arrow-btn" onclick="moveAw('${a.id}',-1,${i})" ${i===0?'disabled':''}>▲</button>
-        <button class="arrow-btn" onclick="moveAw('${a.id}',1,${i})" ${i===tot-1?'disabled':''}>▼</button>
+        <button class="arrow-btn" onclick="moveAw('${a.id}',-1,${i})" ${i===0?'disabled':''}>‚ñ≤</button>
+        <button class="arrow-btn" onclick="moveAw('${a.id}',1,${i})" ${i===tot-1?'disabled':''}>‚ñº</button>
       </div>
       <div class="action-btns">
-        <button class="btn btn-sm" onclick="openModal('${a.id}')">✏ Modifica</button>
-        <button class="btn btn-sm btn-dup" onclick="dupAw('${a.id}')">⧉ Duplica</button>
-        <button class="btn btn-sm" onclick="printSingle('${a.id}')" title="Stampa scheda">🖨</button>
-        <button class="btn btn-sm btn-danger" onclick="delAw('${a.id}')">✕</button>
+        <button class="btn btn-sm" onclick="openModal('${a.id}')">‚úè Modifica</button>
+        <button class="btn btn-sm btn-dup" onclick="dupAw('${a.id}')">‚ßâ Duplica</button>
+        <button class="btn btn-sm" onclick="printSingle('${a.id}')" title="Stampa scheda">üñ®</button>
+        <button class="btn btn-sm btn-danger" onclick="delAw('${a.id}')">‚úï</button>
       </div>
     </div>
   </div>`;
@@ -472,7 +472,7 @@ function renderArtistList(){
   document.getElementById('artist-count').textContent=artworks.length+' '+(artworks.length===1?'opera':'opere');
   el.innerHTML=artworks.length
     ? artworks.map((a,i)=>cardHTML(a,i,artworks.length)).join('')
-    : '<div class="empty-state"><div class="empty-icon">🖼</div><p>Nessuna opera ancora.<br>Clicca <strong>+ Aggiungi opera</strong> per iniziare.</p></div>';
+    : '<div class="empty-state"><div class="empty-icon">üñº</div><p>Nessuna opera ancora.<br>Clicca <strong>+ Aggiungi opera</strong> per iniziare.</p></div>';
 }
 
 function renderAdminList(){
@@ -508,7 +508,7 @@ async function dupAw(id){
   const src=artworks.find(a=>a.id===id); if(!src) return;
   const {id:_,...rest}=src;
   await fdb.collection('artworks').add({...rest,title:(src.title||'')+' (copia)',sortOrder:(src.sortOrder||0)+0.5,createdAt:firebase.firestore.FieldValue.serverTimestamp()});
-  toast('Opera duplicata ✓');
+  toast('Opera duplicata ‚úì');
   myProfile.role==='admin'?await loadAll():await loadMine();
 }
 
@@ -546,7 +546,7 @@ async function saveArtwork(){
   try{
     if(editingId) await fdb.collection('artworks').doc(editingId).update(rec);
     else          await fdb.collection('artworks').add({...rec,createdAt:firebase.firestore.FieldValue.serverTimestamp()});
-    closeModal(); toast('Opera salvata ✓');
+    closeModal(); toast('Opera salvata ‚úì');
     myProfile.role==='admin'?await loadAll():await loadMine();
   }catch(e){ alert('Errore: '+e.message); }
   resetBtn('save-btn','Salva opera');
@@ -562,7 +562,7 @@ async function loadArtistsList(){
         <h3>${p.fullName||p.email} <span class="badge ${p.role==='admin'?'badge-admin':'badge-artist'}">${p.role==='admin'?'Admin':'Artista'}</span></h3>
         <p>${p.email||''}</p>
       </div>
-      ${p.id!==me.uid?`<button class="btn btn-sm" onclick="toggleRole('${p.id}','${p.role||'artist'}')">${p.role==='admin'?'→ Artista':'→ Admin'}</button>`
+      ${p.id!==me.uid?`<button class="btn btn-sm" onclick="toggleRole('${p.id}','${p.role||'artist'}')">${p.role==='admin'?'‚Üí Artista':'‚Üí Admin'}</button>`
         :'<span style="font-size:12px;color:#ccc">(tu)</span>'}
     </div>`).join('');
 }
@@ -570,7 +570,7 @@ async function loadArtistsList(){
 async function toggleRole(id,role){
   if(!confirm(`Cambiare ruolo in "${role==='admin'?'artista':'admin'}"?`)) return;
   await fdb.collection('profiles').doc(id).update({role:role==='admin'?'artist':'admin'});
-  toast('Ruolo aggiornato ✓'); loadArtistsList();
+  toast('Ruolo aggiornato ‚úì'); loadArtistsList();
 }
 
 /* ---- HEADER / PREVIEW / EXPORT ---- */
@@ -587,7 +587,7 @@ function rmLogo(){pendingLogo='';document.getElementById('hf-logo-prev').style.d
 function saveHeader(){
   hdr={title:g('hf-title')||'Catalogo Opere',subtitle:g('hf-sub'),footer:g('hf-footer'),logo:pendingLogo!==null?pendingLogo:hdr.logo};
   localStorage.setItem('tps_hdr',JSON.stringify(hdr));
-  closeHeaderModal(); renderPreview(); toast('Intestazione salvata ✓');
+  closeHeaderModal(); renderPreview(); toast('Intestazione salvata ‚úì');
 }
 
 function renderPreview(){
@@ -668,18 +668,15 @@ async function processPDF(input){
 
     for(let i=1; i<=pdf.numPages; i++){
       const page = await pdf.getPage(i);
-      // Extract text
       const tc = await page.getTextContent();
       const lines = tc.items.map(x=>x.str.trim()).filter(Boolean);
       const fullText = lines.join('\n');
 
-      // Render page to canvas
       const vp = page.getViewport({scale:1.8});
       const canvas = document.createElement('canvas');
       canvas.width = vp.width; canvas.height = vp.height;
       await page.render({canvasContext:canvas.getContext('2d'), viewport:vp}).promise;
 
-      // Crop image: skip header (~8%), take artwork photo area (~50%)
       const cropTop = Math.round(vp.height * 0.08);
       const cropH   = Math.round(vp.height * 0.50);
       const imgCanvas = document.createElement('canvas');
@@ -687,7 +684,6 @@ async function processPDF(input){
       imgCanvas.getContext('2d').drawImage(canvas, 0, cropTop, vp.width, cropH, 0, 0, vp.width, cropH);
       const photoData = imgCanvas.toDataURL('image/jpeg', 0.85);
 
-      // Parse text fields
       const artwork = parseArtworkFromLines(lines, fullText, photoData);
       importedArtworks.push(artwork);
     }
@@ -704,7 +700,6 @@ async function processPDF(input){
 }
 
 function parseArtworkFromLines(lines, fullText, photoData){
-  // Artist: first ALL-CAPS line that isn't an address/url/vat
   const skipWords = ['IVA','WWW','INFO','EX','VIA','ITALY','THE PROJECT'];
   let artistName = '';
   for(const l of lines){
@@ -714,26 +709,21 @@ function parseArtworkFromLines(lines, fullText, photoData){
     }
   }
 
-  // Dimensions: "150 x 110 cm"
   let h='', b='', d='';
-  const dimMatch = fullText.match(/(\d+(?:[.,]\d+)?)\s*[xX×]\s*(\d+(?:[.,]\d+)?)\s*(?:[xX×]\s*(\d+(?:[.,]\d+)?)\s*)?cm/i);
+  const dimMatch = fullText.match(/(\d+(?:[.,]\d+)?)\s*[xX√ó]\s*(\d+(?:[.,]\d+)?)\s*(?:[xX√ó]\s*(\d+(?:[.,]\d+)?)\s*)?cm/i);
   if(dimMatch){ b=dimMatch[1]; h=dimMatch[2]; d=dimMatch[3]||''; }
 
-  // Price: "€ 8.000" or "¬ 8.000"
   let price = '';
-  const priceMatch = fullText.match(/[€¬]\s*([\d.]+)(?:\+Iva)?/i);
+  const priceMatch = fullText.match(/[‚Ç¨¬¨]\s*([\d.]+)(?:\+Iva)?/i);
   if(priceMatch) price = priceMatch[1].replace(/\./g,'');
 
-  // Technique
   let tech = '';
   const techLine = lines.find(l=>l.toLowerCase().includes('stampa fine') || l.toLowerCase().includes('olio su') || l.toLowerCase().includes('acrilico') || l.toLowerCase().includes('tecnica mista') || l.toLowerCase().includes('tiratura'));
   if(techLine) tech = techLine;
 
-  // Title: line just before the technique line (or before dimensions)
   let title = '';
   const techIdx = lines.findIndex(l=>l===techLine);
   if(techIdx > 0) title = lines[techIdx-1];
-  // Clean up title (remove gallery refs)
   if(title && (title.includes('Project Space') || title.includes('@') || title.includes('www') || title.includes('IVA'))) title='';
 
   return { artistName, title, year:'', price, h, b, d, tech, notes:'', photoData };
@@ -750,10 +740,10 @@ function renderImportPreview(){
           <div class="ic-full"><input placeholder="Titolo opera" value="${a.title||''}" oninput="importedArtworks[${i}].title=this.value"></div>
           <input placeholder="Artista" value="${a.artistName||''}" oninput="importedArtworks[${i}].artistName=this.value">
           <input placeholder="Anno" value="${a.year||''}" oninput="importedArtworks[${i}].year=this.value">
-          <input placeholder="Prezzo €" value="${a.price||''}" oninput="importedArtworks[${i}].price=this.value">
+          <input placeholder="Prezzo ‚Ç¨" value="${a.price||''}" oninput="importedArtworks[${i}].price=this.value">
           <input placeholder="Altezza cm" value="${a.h||''}" oninput="importedArtworks[${i}].h=this.value">
           <input placeholder="Base cm" value="${a.b||''}" oninput="importedArtworks[${i}].b=this.value">
-          <input placeholder="Profondità cm" value="${a.d||''}" oninput="importedArtworks[${i}].d=this.value">
+          <input placeholder="Profondit√† cm" value="${a.d||''}" oninput="importedArtworks[${i}].d=this.value">
           <div class="ic-full"><input placeholder="Tecnica" value="${a.tech||''}" oninput="importedArtworks[${i}].tech=this.value"></div>
         </div>
       </div>
@@ -781,7 +771,7 @@ async function saveImportedArtworks(){
       });
     });
     await batch.commit();
-    toast(`${importedArtworks.length} opere importate ✓`);
+    toast(`${importedArtworks.length} opere importate ‚úì`);
     closeImportModal();
     await loadAll();
   }catch(e){
@@ -793,8 +783,8 @@ async function saveImportedArtworks(){
 /* ---- PRINT SINGLE ---- */
 function printSingle(id){
   const a = artworks.find(x=>x.id===id); if(!a) return;
-  const dims = [a.h?'H '+a.h:null,a.b?'B '+a.b:null,a.d?'P '+a.d:null].filter(Boolean).join(' × ');
-  const price = a.price ? '€ '+Number(a.price).toLocaleString('it-IT',{minimumFractionDigits:2,maximumFractionDigits:2}) : '';
+  const dims = [a.h?'H '+a.h:null,a.b?'B '+a.b:null,a.d?'P '+a.d:null].filter(Boolean).join(' √ó ');
+  const price = a.price ? '‚Ç¨ '+Number(a.price).toLocaleString('it-IT',{minimumFractionDigits:2,maximumFractionDigits:2}) : '';
   const today = new Date().toLocaleDateString('it-IT',{year:'numeric',month:'long',day:'numeric'});
   const win = window.open('','_blank','width=900,height=700');
   win.document.write(`<!DOCTYPE html>
