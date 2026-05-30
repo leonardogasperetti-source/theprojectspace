@@ -10,7 +10,6 @@
 body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f4f2;color:#111;min-height:100vh}
 #auth-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
 .auth-card{background:#fff;border-radius:14px;padding:40px;width:100%;max-width:420px;box-shadow:0 4px 28px rgba(0,0,0,.10)}
-.auth-logo{text-align:center;font-size:34px;margin-bottom:6px}
 .auth-card h1{font-size:20px;font-weight:600;text-align:center;margin-bottom:2px}
 .auth-card .sub{font-size:13px;color:#999;text-align:center;margin-bottom:24px}
 .auth-tabs{display:flex;border-bottom:1px solid #eee;margin-bottom:22px}
@@ -31,6 +30,9 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f4f2;color:#111;min-h
 .btn-danger:hover{background:#fff0f0;border-color:#b00}
 .btn-dup{color:#555;border-color:#ccc}
 .btn-dup:hover{background:#f5f5f0}
+.btn-expo{color:#1a7a3a;border-color:#b8e0c8;background:#f0faf4}
+.btn-expo:hover{background:#d8f5e5;border-color:#1a7a3a}
+.btn-expo.active{background:#1a7a3a;color:#fff;border-color:#1a7a3a}
 .msg-err{color:#b00;font-size:12px;margin-top:10px;text-align:center;line-height:1.4}
 .msg-ok{color:#1a7a3a;font-size:12px;margin-top:10px;text-align:center}
 #topbar{background:#fff;border-bottom:1px solid #ddd;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,.05)}
@@ -39,6 +41,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f4f2;color:#111;min-h
 .badge{display:inline-block;padding:2px 7px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.04em}
 .badge-admin{background:#111;color:#fff}
 .badge-artist{background:#e8f0fe;color:#1a56db}
+.badge-expo{background:#1a7a3a;color:#fff}
 .tabs{display:flex;gap:4px}
 .tab{padding:6px 14px;border:1px solid #ccc;border-radius:6px;background:transparent;cursor:pointer;font-size:13px;color:#666;transition:all .15s}
 .tab.active{background:#111;color:#fff;border-color:#111}
@@ -48,6 +51,13 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f4f2;color:#111;min-h
 .view.active{display:block}
 .list-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px}
 .list-header span{font-size:13px;color:#888}
+
+/* VIEW MODE SWITCHER */
+.view-switcher{display:flex;gap:4px;border:1px solid #ddd;border-radius:8px;padding:3px;background:#f8f8f8}
+.vm-btn{padding:5px 11px;border:none;border-radius:5px;background:transparent;cursor:pointer;font-size:12px;color:#888;transition:all .15s}
+.vm-btn.active{background:#fff;color:#111;font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+
+/* CARD VIEW (default) */
 .artwork-card{background:#fff;border:1px solid #e0e0e0;border-radius:10px;padding:14px;margin-bottom:10px;display:flex;gap:14px;align-items:flex-start}
 .thumb{width:72px;height:72px;border-radius:8px;object-fit:cover;border:1px solid #ddd;flex-shrink:0}
 .thumb-ph{width:72px;height:72px;border-radius:8px;border:1px dashed #ccc;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#ccc;font-size:10px;text-align:center;background:#fafafa;line-height:1.4}
@@ -60,10 +70,28 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f4f2;color:#111;min-h
 .arrow-btn{width:28px;height:28px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer;font-size:11px;display:flex;align-items:center;justify-content:center;color:#666;transition:all .1s}
 .arrow-btn:hover{background:#f0f0f0}
 .arrow-btn:disabled{opacity:.2;cursor:default;pointer-events:none}
-.action-btns{display:flex;gap:5px}
+.action-btns{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
+
+/* LIST VIEW */
+.artwork-row{background:#fff;border:1px solid #e0e0e0;border-radius:10px;padding:10px 14px;margin-bottom:6px;display:flex;align-items:center;gap:14px}
+.artwork-row .row-thumb{width:80px;height:64px;border-radius:7px;object-fit:cover;border:1px solid #ddd;flex-shrink:0}
+.artwork-row .row-thumb-ph{width:80px;height:64px;border-radius:7px;border:1px dashed #ccc;flex-shrink:0;background:#fafafa;display:flex;align-items:center;justify-content:center;color:#ddd;font-size:10px}
+.artwork-row .row-info{flex:1;min-width:0;display:grid;grid-template-columns:1fr 1fr;gap:2px 16px;align-items:center}
+.artwork-row .row-title{font-size:13px;font-weight:600;grid-column:1/-1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.artwork-row .row-artist{font-size:12px;color:#555;font-weight:500}
+.artwork-row .row-year{font-size:11px;color:#aaa}
+.artwork-row .row-dims{font-size:11px;color:#aaa}
+.artwork-row .row-tech{font-size:11px;color:#aaa;font-style:italic;grid-column:1/-1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.artwork-row .row-price{font-size:13px;font-weight:700;color:#111;grid-column:1/-1;margin-top:2px}
+.artwork-row .row-controls{display:flex;gap:4px;flex-shrink:0;align-items:center}
+
+/* EXPO INDICATOR */
+.expo-dot{width:8px;height:8px;border-radius:50%;background:#ddd;flex-shrink:0}
+.expo-dot.on{background:#1a7a3a}
+
 .empty-state{text-align:center;padding:60px 20px;color:#bbb}
 .empty-icon{font-size:44px;margin-bottom:12px}
-.filter-bar{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.filter-bar{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;align-items:center}
 .filter-bar input,.filter-bar select{padding:7px 11px;border:1px solid #ddd;border-radius:6px;font-size:13px;background:#fff;color:#111}
 .filter-bar input{flex:1;min-width:160px}
 .section-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#bbb;margin:18px 0 10px}
@@ -80,6 +108,16 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f4f2;color:#111;min-h
 #f-photo-prev,#hf-logo-prev{width:72px;height:72px;object-fit:cover;border-radius:8px;border:1px solid #ddd;display:none}
 .rm-link{font-size:12px;color:#b00;cursor:pointer;display:none}
 .modal-footer{display:flex;justify-content:flex-end;gap:8px;margin-top:18px;padding-top:14px;border-top:1px solid #eee}
+.toggle-row{display:flex;align-items:center;gap:10px;padding:10px 12px;background:#f8f8f8;border-radius:8px;border:1px solid #e0e0e0}
+.toggle-row label{font-size:13px;color:#333;cursor:pointer;user-select:none}
+.toggle{position:relative;width:36px;height:20px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0}
+.toggle-slider{position:absolute;inset:0;background:#ccc;border-radius:20px;cursor:pointer;transition:.2s}
+.toggle-slider:before{content:'';position:absolute;width:16px;height:16px;left:2px;bottom:2px;background:#fff;border-radius:50%;transition:.2s}
+.toggle input:checked+.toggle-slider{background:#1a7a3a}
+.toggle input:checked+.toggle-slider:before{transform:translateX(16px)}
+
+/* CATALOG PREVIEW */
 #preview-page{background:#fff;max-width:800px;margin:0 auto;box-shadow:0 2px 20px rgba(0,0,0,.12)}
 .ph{padding:32px 44px 22px;border-bottom:2.5px solid #111;text-align:center}
 .ph img.logo{max-height:64px;max-width:220px;object-fit:contain;display:block;margin:0 auto 10px}
@@ -96,6 +134,46 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f4f2;color:#111;min-h
 .ae-meta{font-size:11px;color:#999;margin-bottom:2px;line-height:1.5}
 .ae-price{font-size:13px;font-weight:700;margin-top:8px;color:#111}
 .pf{padding:16px 44px;border-top:1px solid #ddd;text-align:center;font-size:11px;color:#aaa;font-family:Georgia,serif}
+
+/* AUTENTICA PREVIEW */
+.autentica-page{background:#fff;max-width:800px;margin:0 auto 40px;box-shadow:0 2px 20px rgba(0,0,0,.12);page-break-after:always}
+.autentica-page:last-child{margin-bottom:0}
+.aut-head{padding:24px 44px 20px;border-bottom:2px solid #111;display:flex;justify-content:space-between;align-items:flex-start}
+.aut-head-left{}
+.aut-gallery-name{font-size:18px;font-weight:700;letter-spacing:.03em;color:#111}
+.aut-gallery-sub{font-size:11px;color:#888;margin-top:2px}
+.aut-head-right{text-align:right;padding-top:4px}
+.aut-head-right .cert-label{font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:#bbb}
+.aut-head-right .cert-num{font-size:15px;font-weight:700;color:#111;margin-top:3px}
+.aut-body{padding:28px 44px}
+.aut-img{width:100%;max-height:360px;object-fit:contain;background:#f8f8f8;display:block;margin-bottom:28px;border:1px solid #eee}
+.aut-no-img{width:100%;height:260px;background:#f2f2f2;display:flex;align-items:center;justify-content:center;color:#ccc;font-size:13px;margin-bottom:28px}
+.aut-title{font-size:26px;font-style:italic;font-family:Georgia,serif;margin-bottom:6px}
+.aut-artist{font-size:15px;font-weight:700;color:#333;margin-bottom:20px;letter-spacing:.02em}
+.aut-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px 24px;margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid #eee}
+.aut-field label{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:#bbb;display:block;margin-bottom:3px}
+.aut-field span{font-size:13px;color:#111}
+.aut-price-row{display:flex;justify-content:space-between;align-items:flex-end;padding-bottom:24px;border-bottom:1px solid #eee;margin-bottom:28px}
+.aut-price-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#bbb}
+.aut-price-value{font-size:24px;font-weight:700;color:#111;margin-top:4px}
+.aut-notes{font-size:12px;color:#666;font-style:italic;margin-bottom:28px}
+.aut-sign{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.aut-sign-box{border-top:1px solid #ccc;padding-top:10px}
+.aut-sign-box .sign-label{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:#bbb}
+.aut-sign-box .sign-line{height:40px}
+.aut-foot{padding:14px 44px;border-top:1px solid #eee;display:flex;justify-content:space-between;align-items:center}
+.aut-foot-text{font-size:10px;color:#bbb;font-family:Georgia,serif}
+.aut-foot-date{font-size:10px;color:#bbb}
+
+/* ESPOSIZIONE PRINT */
+.expo-print-page{background:#fff;max-width:800px;margin:0 auto;box-shadow:0 2px 20px rgba(0,0,0,.12)}
+.expo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:24px}
+.expo-item{text-align:center}
+.expo-item img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px;border:1px solid #eee;margin-bottom:6px}
+.expo-item .expo-item-no-img{width:100%;aspect-ratio:1;background:#f2f2f2;border-radius:6px;border:1px dashed #ddd;display:flex;align-items:center;justify-content:center;color:#ccc;font-size:10px;margin-bottom:6px}
+.expo-item-title{font-size:11px;font-style:italic;font-family:Georgia,serif;color:#111}
+.expo-item-artist{font-size:10px;color:#888;margin-top:2px}
+
 .toast{position:fixed;bottom:24px;right:24px;background:#111;color:#fff;padding:10px 18px;border-radius:8px;font-size:13px;z-index:9999;display:none;box-shadow:0 4px 14px rgba(0,0,0,.25)}
 .import-card{background:#fafafa;border:1px solid #e0e0e0;border-radius:10px;padding:14px;margin-bottom:12px}
 .import-card h4{font-size:13px;font-weight:600;margin-bottom:10px;color:#555}
@@ -106,13 +184,16 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f4f2;color:#111;min-h
 .import-card .ic-full{grid-column:1/-1}
 .spinner{display:inline-block;width:13px;height:13px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px}
 @keyframes spin{to{transform:rotate(360deg)}}
+
 @media print{
   #topbar,#auth-screen,.no-print{display:none!important}
   #app-screen{display:block!important}
   .view{display:none!important}
   #view-catalog{display:block!important;padding:0!important;max-width:100%!important}
   #preview-page{box-shadow:none!important;max-width:100%!important}
-  @page{size:A4 portrait;margin:12mm}
+  .autentica-page{box-shadow:none!important;max-width:100%!important;margin:0!important}
+  .expo-print-page{box-shadow:none!important;max-width:100%!important}
+  @page{size:A4 portrait;margin:10mm}
 }
 </style>
 </head>
@@ -120,7 +201,6 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f4f2;color:#111;min-h
 
 <div id="auth-screen">
   <div class="auth-card">
-    
     <h1>The Project Space</h1>
     <p class="sub">Gestione Catalogo Opere</p>
     <div class="auth-tabs">
@@ -163,6 +243,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f4f2;color:#111;min-h
     </div>
   </div>
 
+  <!-- VISTA ARTISTA -->
   <div class="view active" id="view-artist">
     <div class="list-header">
       <span id="artist-count">Caricamento...</span>
@@ -171,33 +252,58 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f4f2;color:#111;min-h
     <div id="artist-list"></div>
   </div>
 
+  <!-- VISTA ADMIN OPERE -->
   <div class="view" id="view-artworks">
     <div class="list-header">
       <span id="admin-count">Caricamento...</span>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn no-print" onclick="openImportModal()">📄 Importa da PDF</button>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <div class="view-switcher no-print">
+          <button class="vm-btn active" id="vm-card" onclick="setViewMode('card')" title="Miniature">⊞ Miniature</button>
+          <button class="vm-btn" id="vm-list" onclick="setViewMode('list')" title="Lista">☰ Lista</button>
+        </div>
+        <button class="btn no-print" onclick="openImportModal()">📄 Importa PDF</button>
         <button class="btn btn-primary no-print" onclick="openModal(null)">+ Aggiungi opera</button>
       </div>
     </div>
     <div class="filter-bar no-print">
       <input id="search-q" placeholder="🔍  Cerca titolo o artista..." oninput="renderAdminList()">
       <select id="filter-art" onchange="renderAdminList()"><option value="">Tutti gli artisti</option></select>
+      <select id="filter-expo" onchange="renderAdminList()">
+        <option value="">Tutte le opere</option>
+        <option value="1">Solo in esposizione</option>
+        <option value="0">Non in esposizione</option>
+      </select>
     </div>
     <div id="admin-list"></div>
   </div>
 
+  <!-- VISTA ARTISTI -->
   <div class="view" id="view-artists">
     <p class="section-label">Artisti registrati</p>
     <div id="artists-list"></div>
   </div>
 
+  <!-- VISTA CATALOGO -->
   <div class="view" id="view-catalog">
-    <div class="no-print" style="display:flex;justify-content:flex-end;gap:8px;margin-bottom:16px;flex-wrap:wrap">
-      <button class="btn" onclick="openHeaderModal()">Intestazione &amp; Piè</button>
-      <button class="btn" onclick="exportHTML()">Esporta HTML</button>
-      <button class="btn btn-primary" onclick="window.print()">🖨 Stampa A4</button>
+    <div class="no-print" style="margin-bottom:16px">
+      <!-- Selettore modalità catalogo -->
+      <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;align-items:center">
+        <div class="view-switcher">
+          <button class="vm-btn active" id="cat-mode-thumb" onclick="setCatalogMode('thumb')">⊞ Miniature</button>
+          <button class="vm-btn" id="cat-mode-aut" onclick="setCatalogMode('autentica')">📄 Autentiche A4</button>
+          <button class="vm-btn" id="cat-mode-expo" onclick="setCatalogMode('expo')">🟢 Esposizione</button>
+        </div>
+        <label style="font-size:12px;color:#888;display:flex;align-items:center;gap:6px">
+          <input type="checkbox" id="expo-only-filter" onchange="reloadCatalog()"> Solo opere in esposizione
+        </label>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap">
+        <button class="btn" id="cat-btn-header" onclick="openHeaderModal()">Intestazione &amp; Piè</button>
+        <button class="btn" id="cat-btn-export" onclick="exportHTML()">Esporta HTML</button>
+        <button class="btn btn-primary" onclick="window.print()">🖨 Stampa A4</button>
+      </div>
     </div>
-    <div id="preview-page"></div>
+    <div id="catalog-content"></div>
   </div>
 </div>
 
@@ -214,6 +320,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f4f2;color:#111;min-h
       <div class="fg"><label>Base (cm)</label><input id="f-b" type="number" placeholder="150" step="0.1"></div>
       <div class="fg"><label>Profondità (cm)</label><input id="f-d" type="number" placeholder="3" step="0.1"></div>
       <div class="fg"><label>Tecnica / Materiale</label><input id="f-tech" placeholder="es. Stampa fine-art"></div>
+      <div class="fg full"><label>Numero certificato</label><input id="f-certnum" placeholder="es. TPS-2025-001"></div>
       <div class="fg full"><label>Foto dell'opera</label>
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px">
           <label style="cursor:pointer;padding:7px 12px;border:1px solid #ccc;border-radius:7px;font-size:12px;background:#fff;display:inline-block">
@@ -228,6 +335,12 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f4f2;color:#111;min-h
         <div class="photo-wrap"><img id="f-photo-prev"><span class="rm-link" id="f-rm-ph" onclick="rmPhoto()">&#10005; Rimuovi foto</span></div>
       </div>
       <div class="fg full"><label>Note / Descrizione</label><textarea id="f-notes" placeholder="Provenienza, tiratura, note espositive..."></textarea></div>
+      <div class="fg full">
+        <div class="toggle-row">
+          <label class="toggle"><input type="checkbox" id="f-inexpo"><span class="toggle-slider"></span></label>
+          <label for="f-inexpo" style="font-size:13px;color:#333;cursor:pointer">🟢 Opera in esposizione</label>
+        </div>
+      </div>
     </div>
     <div class="modal-footer">
       <button class="btn" onclick="closeModal()">Annulla</button>
@@ -247,7 +360,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f4f2;color:#111;min-h
         <input id="hf-logo" type="file" accept="image/*" onchange="previewImg(this,'hf-logo-prev','hf-rm-logo','logo')">
         <div class="photo-wrap"><img id="hf-logo-prev"><span class="rm-link" id="hf-rm-logo" onclick="rmLogo()">✕ Rimuovi logo</span></div>
       </div>
-      <div class="fg full"><label>Piè di pagina</label><textarea id="hf-footer" placeholder="© 2025 The Project Space – info@theprojectspace.it – www.theprojectspace.it"></textarea></div>
+      <div class="fg full"><label>Piè di pagina</label><textarea id="hf-footer" placeholder="© 2025 The Project Space – info@theprojectspace.it"></textarea></div>
     </div>
     <div class="modal-footer">
       <button class="btn" onclick="closeHeaderModal()">Annulla</button>
@@ -299,6 +412,8 @@ const fdb  = firebase.firestore();
 let me = null, myProfile = null;
 let artworks = [], allProfiles = [];
 let editingId = null, pendingPhoto = null, pendingLogo = null;
+let currentViewMode = 'card'; // 'card' | 'list'
+let currentCatalogMode = 'thumb'; // 'thumb' | 'autentica' | 'expo'
 let hdr = {title:'Catalogo Opere',subtitle:'The Project Space',footer:'',logo:''};
 try{ const s=localStorage.getItem('tps_hdr'); if(s) hdr=JSON.parse(s); }catch(e){}
 
@@ -416,8 +531,40 @@ function showView(v){
   document.getElementById('view-'+v)?.classList.add('active');
   document.querySelectorAll('#admin-tabs .tab').forEach((t,i)=>
     t.classList.toggle('active',['artworks','artists','catalog'][i]===v));
-  if(v==='catalog') loadAll().then(renderPreview);
+  if(v==='catalog') reloadCatalog();
   if(v==='artists') loadArtistsList();
+}
+
+/* ---- VIEW MODE ---- */
+function setViewMode(mode){
+  currentViewMode = mode;
+  document.getElementById('vm-card').classList.toggle('active', mode==='card');
+  document.getElementById('vm-list').classList.toggle('active', mode==='list');
+  renderAdminList();
+}
+
+function setCatalogMode(mode){
+  currentCatalogMode = mode;
+  ['thumb','aut','expo'].forEach(m=>{
+    const el=document.getElementById('cat-mode-'+m);
+    if(el) el.classList.toggle('active', ('cat-mode-'+m)==='cat-mode-'+mode || m===mode.replace('autentica','aut'));
+  });
+  // fix active state
+  document.querySelectorAll('[id^="cat-mode-"]').forEach(el=>el.classList.remove('active'));
+  const map={thumb:'cat-mode-thumb',autentica:'cat-mode-aut',expo:'cat-mode-expo'};
+  document.getElementById(map[mode])?.classList.add('active');
+  // hide/show export button (not relevant for autentica/expo)
+  document.getElementById('cat-btn-export').style.display = mode==='thumb'?'':'none';
+  reloadCatalog();
+}
+
+async function reloadCatalog(){
+  await loadAll();
+  const expoOnly = document.getElementById('expo-only-filter')?.checked;
+  const list = expoOnly ? artworks.filter(a=>a.inExhibition) : artworks;
+  if(currentCatalogMode==='thumb') renderPreview(list);
+  else if(currentCatalogMode==='autentica') renderAutentiche(list);
+  else if(currentCatalogMode==='expo') renderExpoPrint(list.filter(a=>a.inExhibition));
 }
 
 /* ---- DATA ---- */
@@ -442,6 +589,7 @@ const fmtP=p=>'€ '+Number(p).toLocaleString('it-IT',{minimumFractionDigits:2,m
 const dims=a=>[a.h?'H '+a.h:null,a.b?'B '+a.b:null,a.d?'P '+a.d:null].filter(Boolean).join(' × ');
 
 function cardHTML(a,i,tot){
+  const expoBtn = `<button class="btn btn-sm btn-expo${a.inExhibition?' active':''}" onclick="toggleExpo('${a.id}',${!!a.inExhibition})" title="${a.inExhibition?'Rimuovi da esposizione':'Segna come esposta'}">${a.inExhibition?'🟢 Esposta':'⚪ Esposta'}</button>`;
   return `<div class="artwork-card">
     ${a.photoData?`<img class="thumb" src="${a.photoData}" alt="">`:
       `<div class="thumb-ph">Nessuna<br>foto</div>`}
@@ -458,11 +606,34 @@ function cardHTML(a,i,tot){
         <button class="arrow-btn" onclick="moveAw('${a.id}',1,${i})" ${i===tot-1?'disabled':''}>▼</button>
       </div>
       <div class="action-btns">
+        ${expoBtn}
         <button class="btn btn-sm" onclick="openModal('${a.id}')">✏ Modifica</button>
         <button class="btn btn-sm btn-dup" onclick="dupAw('${a.id}')">⧉ Duplica</button>
         <button class="btn btn-sm" onclick="printSingle('${a.id}')" title="Stampa scheda">🖨</button>
         <button class="btn btn-sm btn-danger" onclick="delAw('${a.id}')">✕</button>
       </div>
+    </div>
+  </div>`;
+}
+
+function rowHTML(a,i,tot){
+  return `<div class="artwork-row">
+    <div class="expo-dot${a.inExhibition?' on':''}" title="${a.inExhibition?'In esposizione':'Non esposta'}"></div>
+    ${a.photoData?`<img class="row-thumb" src="${a.photoData}" alt="">`:
+      `<div class="row-thumb-ph">No foto</div>`}
+    <div class="row-info">
+      <span class="row-title">${a.title||'<em>Senza titolo</em>'}</span>
+      ${a.artistName?`<span class="row-artist">${a.artistName}</span>`:''}
+      ${a.year?`<span class="row-year">${a.year}</span>`:''}
+      ${dims(a)?`<span class="row-dims">${dims(a)} cm</span>`:''}
+      ${a.tech?`<span class="row-tech">${a.tech}</span>`:''}
+      ${a.price?`<span class="row-price">${fmtP(a.price)}</span>`:''}
+    </div>
+    <div class="row-controls no-print">
+      <button class="btn btn-sm btn-expo${a.inExhibition?' active':''}" onclick="toggleExpo('${a.id}',${!!a.inExhibition})" title="${a.inExhibition?'Rimuovi da esposizione':'Segna come esposta'}">${a.inExhibition?'🟢':'⚪'}</button>
+      <button class="btn btn-sm" onclick="openModal('${a.id}')">✏ Modifica</button>
+      <button class="btn btn-sm btn-dup" onclick="dupAw('${a.id}')">⧉</button>
+      <button class="btn btn-sm btn-danger" onclick="delAw('${a.id}')">✕</button>
     </div>
   </div>`;
 }
@@ -479,11 +650,33 @@ function renderAdminList(){
   const el=document.getElementById('admin-list'); if(!el) return;
   const q=(document.getElementById('search-q')?.value||'').toLowerCase();
   const fa=document.getElementById('filter-art')?.value||'';
-  const list=artworks.filter(a=>(!q||(a.title||'').toLowerCase().includes(q)||(a.artistName||'').toLowerCase().includes(q))&&(!fa||a.artistName===fa));
-  document.getElementById('admin-count').textContent=list.length+' '+(list.length===1?'opera':'opere');
-  el.innerHTML=list.length
-    ? list.map((a,i)=>cardHTML(a,i,list.length)).join('')
-    : '<div class="empty-state">Nessun risultato</div>';
+  const fe=document.getElementById('filter-expo')?.value||'';
+  const list=artworks.filter(a=>{
+    if(q && !(a.title||'').toLowerCase().includes(q) && !(a.artistName||'').toLowerCase().includes(q)) return false;
+    if(fa && a.artistName!==fa) return false;
+    if(fe==='1' && !a.inExhibition) return false;
+    if(fe==='0' && a.inExhibition) return false;
+    return true;
+  });
+  const expoCount = artworks.filter(a=>a.inExhibition).length;
+  document.getElementById('admin-count').innerHTML=
+    `${list.length} ${list.length===1?'opera':'opere'} &nbsp;·&nbsp; <span style="color:#1a7a3a">🟢 ${expoCount} in esposizione</span>`;
+  if(currentViewMode==='list'){
+    el.innerHTML=list.length
+      ? list.map((a,i)=>rowHTML(a,i,list.length)).join('')
+      : '<div class="empty-state">Nessun risultato</div>';
+  } else {
+    el.innerHTML=list.length
+      ? list.map((a,i)=>cardHTML(a,i,list.length)).join('')
+      : '<div class="empty-state">Nessun risultato</div>';
+  }
+}
+
+/* ---- TOGGLE ESPOSIZIONE ---- */
+async function toggleExpo(id, current){
+  await fdb.collection('artworks').doc(id).update({inExhibition: !current});
+  toast((!current ? '🟢 Opera aggiunta all\'esposizione' : '⚪ Opera rimossa dall\'esposizione'));
+  myProfile.role==='admin'?await loadAll():await loadMine();
 }
 
 /* ---- CRUD ---- */
@@ -520,6 +713,8 @@ function openModal(id){
   sv('f-title',a?.title||''); sv('f-year',a?.year||''); sv('f-price',a?.price||'');
   sv('f-h',a?.h||''); sv('f-b',a?.b||''); sv('f-d',a?.d||'');
   sv('f-tech',a?.tech||''); sv('f-notes',a?.notes||'');
+  sv('f-certnum',a?.certNum||'');
+  document.getElementById('f-inexpo').checked = !!(a?.inExhibition);
   if(myProfile?.role==='admin') sv('f-artist-name', id ? (a?.artistName||'') : '');
   const prev=document.getElementById('f-photo-prev'),rm=document.getElementById('f-rm-ph');
   if(a?.photoData){prev.src=a.photoData;prev.style.display='block';rm.style.display='inline';}
@@ -540,6 +735,8 @@ async function saveArtwork(){
     artistName: myProfile?.role==='admin' ? g('f-artist-name') : (myProfile?.fullName||''),
     title:g('f-title'), year:g('f-year'), price:g('f-price'),
     h:g('f-h'), b:g('f-b'), d:g('f-d'), tech:g('f-tech'), notes:g('f-notes'),
+    certNum: g('f-certnum'),
+    inExhibition: document.getElementById('f-inexpo').checked,
     photoData, sortOrder:existing?.sortOrder??maxO+1,
     updatedAt:firebase.firestore.FieldValue.serverTimestamp()
   };
@@ -573,7 +770,7 @@ async function toggleRole(id,role){
   toast('Ruolo aggiornato ✓'); loadArtistsList();
 }
 
-/* ---- HEADER / PREVIEW / EXPORT ---- */
+/* ---- HEADER ---- */
 function openHeaderModal(){
   sv('hf-title',hdr.title||''); sv('hf-sub',hdr.subtitle||''); sv('hf-footer',hdr.footer||'');
   pendingLogo=null;
@@ -587,12 +784,14 @@ function rmLogo(){pendingLogo='';document.getElementById('hf-logo-prev').style.d
 function saveHeader(){
   hdr={title:g('hf-title')||'Catalogo Opere',subtitle:g('hf-sub'),footer:g('hf-footer'),logo:pendingLogo!==null?pendingLogo:hdr.logo};
   localStorage.setItem('tps_hdr',JSON.stringify(hdr));
-  closeHeaderModal(); renderPreview(); toast('Intestazione salvata ✓');
+  closeHeaderModal(); reloadCatalog(); toast('Intestazione salvata ✓');
 }
 
-function renderPreview(){
+/* ---- RENDER PREVIEW MINIATURE ---- */
+function renderPreview(list){
+  list = list || artworks;
   const today=new Date().toLocaleDateString('it-IT',{year:'numeric',month:'long',day:'numeric'});
-  const items=artworks.map(a=>`<div class="ae">
+  const items=list.map(a=>`<div class="ae">
     ${a.photoData?`<img src="${a.photoData}" alt="">`:`<div class="no-img">Nessuna immagine</div>`}
     <div class="ae-title">${a.title||'Senza titolo'}</div>
     <div class="ae-artist">${a.artistName||''}</div>
@@ -602,17 +801,85 @@ function renderPreview(){
     ${a.notes?`<div class="ae-meta">${a.notes}</div>`:''}
     ${a.price?`<div class="ae-price">${fmtP(a.price)}</div>`:''}
   </div>`).join('');
-  document.getElementById('preview-page').innerHTML=`
+  document.getElementById('catalog-content').innerHTML=`<div id="preview-page">
     <div class="ph">${hdr.logo?`<img class="logo" src="${hdr.logo}" alt="">`:''}<h1>${hdr.title}</h1>${hdr.subtitle?`<div class="sub-t">${hdr.subtitle}</div>`:''}<div class="dt">${today}</div></div>
     <div class="ag">${items||'<p style="grid-column:1/-1;padding:40px;text-align:center;color:#ccc">Nessuna opera</p>'}</div>
-    <div class="pf">${hdr.footer||''}</div>`;
+    <div class="pf">${hdr.footer||''}</div>
+  </div>`;
 }
 
+/* ---- RENDER AUTENTICHE A4 ---- */
+function renderAutentiche(list){
+  list = list || artworks;
+  const today=new Date().toLocaleDateString('it-IT',{year:'numeric',month:'long',day:'numeric'});
+  const pages = list.map((a,idx)=>{
+    const d = dims(a);
+    const certNum = a.certNum || (String(idx+1).padStart(3,'0'));
+    return `<div class="autentica-page">
+      <div class="aut-head">
+        <div class="aut-head-left">
+          ${hdr.logo ? `<img src="${hdr.logo}" alt="" style="max-height:60px;max-width:200px;object-fit:contain;display:block;margin-bottom:6px">` : ''}
+          <div class="aut-gallery-name">${hdr.title||'The Project Space'}</div>
+          ${hdr.subtitle ? `<div class="aut-gallery-sub">${hdr.subtitle}</div>` : ''}
+        </div>
+        <div class="aut-head-right">
+          <div class="cert-label">Certificato di autenticità</div>
+          <div class="cert-num">N° ${certNum}</div>
+        </div>
+      </div>
+      <div class="aut-body">
+        ${a.photoData?`<img class="aut-img" src="${a.photoData}" alt="">`:`<div class="aut-no-img">Nessuna immagine</div>`}
+        <div class="aut-title">${a.title||'Senza titolo'}</div>
+        <div class="aut-artist">${a.artistName||''}</div>
+        <div class="aut-grid">
+          ${a.year?`<div class="aut-field"><label>Anno</label><span>${a.year}</span></div>`:''}
+          ${a.tech?`<div class="aut-field"><label>Tecnica</label><span>${a.tech}</span></div>`:''}
+          ${d?`<div class="aut-field"><label>Dimensioni</label><span>${d} cm</span></div>`:''}
+        </div>
+        ${a.notes?`<div class="aut-notes">${a.notes}</div>`:''}
+        ${a.price?`<div class="aut-price-row"><div><div class="aut-price-label">Valore dell'opera</div><div class="aut-price-value">${fmtP(a.price)}</div></div></div>`:''}
+        <div class="aut-sign">
+          <div class="aut-sign-box"><div class="sign-label">Firma dell'artista</div><div class="sign-line"></div></div>
+          <div class="aut-sign-box"><div class="sign-label">Timbro e firma galleria</div><div class="sign-line"></div></div>
+        </div>
+      </div>
+      <div class="aut-foot">
+        <div class="aut-foot-text">${hdr.footer||''}</div>
+        <div class="aut-foot-date">${today}</div>
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('catalog-content').innerHTML = pages ||
+    '<div class="empty-state"><div class="empty-icon">📄</div><p>Nessuna opera da mostrare.</p></div>';
+}
+
+/* ---- RENDER ESPOSIZIONE MINIATURE ---- */
+function renderExpoPrint(list){
+  const expoList = list || artworks.filter(a=>a.inExhibition);
+  if(!expoList.length){
+    document.getElementById('catalog-content').innerHTML=
+      '<div class="empty-state"><div class="empty-icon">🟢</div><p>Nessuna opera segnata come <strong>in esposizione</strong>.<br>Usa il tasto 🟢 Esposta su ogni opera.</p></div>';
+    return;
+  }
+  const today=new Date().toLocaleDateString('it-IT',{year:'numeric',month:'long',day:'numeric'});
+  const items = expoList.map(a=>`<div class="expo-item">
+    ${a.photoData?`<img src="${a.photoData}" alt="">`:`<div class="expo-item-no-img">No foto</div>`}
+    <div class="expo-item-title">${a.title||'Senza titolo'}</div>
+    <div class="expo-item-artist">${a.artistName||''}</div>
+  </div>`).join('');
+  document.getElementById('catalog-content').innerHTML=`<div class="expo-print-page">
+    <div class="ph"><h1>${hdr.title} — Opere in Esposizione</h1>${hdr.subtitle?`<div class="sub-t">${hdr.subtitle}</div>`:''}<div class="dt">${today} · ${expoList.length} opere</div></div>
+    <div class="expo-grid">${items}</div>
+    <div class="pf">${hdr.footer||''}</div>
+  </div>`;
+}
+
+/* ---- EXPORT HTML ---- */
 function exportHTML(){
   if(!artworks.length){alert('Aggiungi almeno un\'opera prima di esportare.');return;}
   const today=new Date().toLocaleDateString('it-IT',{year:'numeric',month:'long',day:'numeric'});
-  const items=artworks.map(a=>`<div class="ae">${a.photoData?`<img src="${a.photoData}" alt="">`:`<div class="no-img">Nessuna immagine</div>`}<div class="ae-title">${a.title||'Senza titolo'}</div><div class="ae-artist">${a.artistName||''}</div>${a.year?`<div class="ae-meta">${a.year}</div>`:''} ${a.tech?`<div class="ae-meta" style="font-style:italic">${a.tech}</div>`:''} ${dims(a)?`<div class="ae-meta">${dims(a)} cm</div>`:''} ${a.price?`<div class="ae-price">${fmtP(a.price)}</div>`:''}</div>`).join('');
-  const html=`<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8"><title>${hdr.title}</title><style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f4f2}.page{background:#fff;max-width:900px;margin:30px auto;box-shadow:0 2px 20px rgba(0,0,0,.1)}.ph{padding:36px 50px 24px;border-bottom:2.5px solid #111;text-align:center}.ph img{max-height:70px;max-width:220px;object-fit:contain;display:block;margin:0 auto 12px}.ph h1{font-size:28px;font-weight:400;font-family:Georgia,serif;letter-spacing:.06em;margin-bottom:6px}.sub-t{font-size:14px;color:#666;font-family:Georgia,serif}.dt{font-size:11px;color:#aaa;margin-top:6px}.ag{display:grid;grid-template-columns:1fr 1fr;padding:0 24px}.ae{padding:24px 20px;border-bottom:1px solid #e0e0e0}.ae:nth-child(odd){border-right:1px solid #e0e0e0}.ae img{width:100%;aspect-ratio:4/3;object-fit:contain;margin-bottom:12px;background:#f8f8f8;display:block}.no-img{width:100%;aspect-ratio:4/3;background:#f2f2f2;display:flex;align-items:center;justify-content:center;color:#ccc;font-size:12px;margin-bottom:12px}.ae-title{font-size:14px;font-style:italic;font-family:Georgia,serif;margin-bottom:4px}.ae-artist{font-size:12px;color:#444;margin-bottom:3px}.ae-meta{font-size:11px;color:#999;margin-bottom:2px}.ae-price{font-size:13px;font-weight:700;margin-top:8px}.pf{padding:18px 50px;border-top:1px solid #ddd;text-align:center;font-size:11px;color:#aaa;font-family:Georgia,serif}@media(max-width:600px){.ag{grid-template-columns:1fr}.ae:nth-child(odd){border-right:none}}@media print{body{background:#fff}.page{box-shadow:none;max-width:100%;margin:0}@page{size:A4;margin:12mm}}</style></head><body><div class="page"><div class="ph">${hdr.logo?`<img src="${hdr.logo}" alt="">`:''}<h1>${hdr.title}</h1>${hdr.subtitle?`<div class="sub-t">${hdr.subtitle}</div>`:''}<div class="dt">${today}</div></div><div class="ag">${items}</div><div class="pf">${hdr.footer||''}</div></div></body></html>`;
+  const items=artworks.map(a=>`<div class="ae">${a.photoData?`<img src="${a.photoData}" alt="">`:`<div class="no-img">Nessuna immagine</div>`}<div class="ae-title">${a.title||'Senza titolo'}</div><div class="ae-artist">${a.artistName||''}</div>${a.year?`<div class="ae-meta">${a.year}</div>`:''} ${a.tech?`<div class="ae-meta" style="font-style:italic">${a.tech}</div>`:''} ${dims(a)?`<div class="ae-meta">${dims(a)} cm</div>`:''} ${a.price?`<div class="ae-price">€ ${Number(a.price).toLocaleString('it-IT',{minimumFractionDigits:2})}</div>`:''}</div>`).join('');
+  const html=`<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8"><title>${hdr.title}</title><style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f4f2}.page{background:#fff;max-width:900px;margin:30px auto;box-shadow:0 2px 20px rgba(0,0,0,.1)}.ph{padding:36px 50px 24px;border-bottom:2.5px solid #111;text-align:center}.ph img{max-height:70px;max-width:220px;object-fit:contain;display:block;margin:0 auto 12px}.ph h1{font-size:28px;font-weight:400;font-family:Georgia,serif;letter-spacing:.06em;margin-bottom:6px}.sub-t{font-size:14px;color:#666;font-family:Georgia,serif}.dt{font-size:11px;color:#aaa;margin-top:6px}.ag{display:grid;grid-template-columns:1fr 1fr;padding:0 24px}.ae{padding:24px 20px;border-bottom:1px solid #e0e0e0}.ae:nth-child(odd){border-right:1px solid #e0e0e0}.ae img{width:100%;aspect-ratio:4/3;object-fit:contain;margin-bottom:12px;background:#f8f8f8;display:block}.no-img{width:100%;aspect-ratio:4/3;background:#f2f2f2;display:flex;align-items:center;justify-content:center;color:#ccc;font-size:12px;margin-bottom:12px}.ae-title{font-size:14px;font-style:italic;font-family:Georgia,serif;margin-bottom:4px}.ae-artist{font-size:12px;color:#444;margin-bottom:3px}.ae-meta{font-size:11px;color:#999;margin-bottom:2px}.ae-price{font-size:13px;font-weight:700;margin-top:8px}.pf{padding:18px 50px;border-top:1px solid #ddd;text-align:center;font-size:11px;color:#aaa;font-family:Georgia,serif}@media print{body{background:#fff}.page{box-shadow:none;max-width:100%;margin:0}@page{size:A4;margin:12mm}}</style></head><body><div class="page"><div class="ph">${hdr.logo?`<img src="${hdr.logo}" alt="">`:''}<h1>${hdr.title}</h1>${hdr.subtitle?`<div class="sub-t">${hdr.subtitle}</div>`:''}<div class="dt">${today}</div></div><div class="ag">${items}</div><div class="pf">${hdr.footer||''}</div></div></body></html>`;
   const blob=new Blob([html],{type:'text/html;charset=utf-8'});
   const url=URL.createObjectURL(blob);
   const a=document.createElement('a');a.href=url;a.download=(hdr.title||'catalogo').toLowerCase().replace(/\s+/g,'_')+'.html';
@@ -658,36 +925,29 @@ async function processPDF(input){
   const file = input.files[0]; if(!file) return;
   document.getElementById('pdf-loading').style.display='block';
   document.getElementById('pdf-file-input').disabled=true;
-
   try{
     const arrayBuffer = await file.arrayBuffer();
     const pdfjsLib = window['pdfjs-dist/build/pdf'];
     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
     const pdf = await pdfjsLib.getDocument({data: arrayBuffer}).promise;
     importedArtworks = [];
-
     for(let i=1; i<=pdf.numPages; i++){
       const page = await pdf.getPage(i);
       const tc = await page.getTextContent();
       const lines = tc.items.map(x=>x.str.trim()).filter(Boolean);
       const fullText = lines.join('\n');
-
       const vp = page.getViewport({scale:1.8});
       const canvas = document.createElement('canvas');
       canvas.width = vp.width; canvas.height = vp.height;
       await page.render({canvasContext:canvas.getContext('2d'), viewport:vp}).promise;
-
       const cropTop = Math.round(vp.height * 0.08);
       const cropH   = Math.round(vp.height * 0.50);
       const imgCanvas = document.createElement('canvas');
       imgCanvas.width = vp.width; imgCanvas.height = cropH;
       imgCanvas.getContext('2d').drawImage(canvas, 0, cropTop, vp.width, cropH, 0, 0, vp.width, cropH);
       const photoData = imgCanvas.toDataURL('image/jpeg', 0.85);
-
-      const artwork = parseArtworkFromLines(lines, fullText, photoData);
-      importedArtworks.push(artwork);
+      importedArtworks.push(parseArtworkFromLines(lines, fullText, photoData));
     }
-
     renderImportPreview();
     document.getElementById('pdf-loading').style.display='none';
     document.getElementById('import-step-1').style.display='none';
@@ -708,24 +968,19 @@ function parseArtworkFromLines(lines, fullText, photoData){
       break;
     }
   }
-
   let h='', b='', d='';
   const dimMatch = fullText.match(/(\d+(?:[.,]\d+)?)\s*[xX×]\s*(\d+(?:[.,]\d+)?)\s*(?:[xX×]\s*(\d+(?:[.,]\d+)?)\s*)?cm/i);
   if(dimMatch){ b=dimMatch[1]; h=dimMatch[2]; d=dimMatch[3]||''; }
-
   let price = '';
   const priceMatch = fullText.match(/[€¬]\s*([\d.]+)(?:\+Iva)?/i);
   if(priceMatch) price = priceMatch[1].replace(/\./g,'');
-
   let tech = '';
   const techLine = lines.find(l=>l.toLowerCase().includes('stampa fine') || l.toLowerCase().includes('olio su') || l.toLowerCase().includes('acrilico') || l.toLowerCase().includes('tecnica mista') || l.toLowerCase().includes('tiratura'));
   if(techLine) tech = techLine;
-
   let title = '';
   const techIdx = lines.findIndex(l=>l===techLine);
   if(techIdx > 0) title = lines[techIdx-1];
   if(title && (title.includes('Project Space') || title.includes('@') || title.includes('www') || title.includes('IVA'))) title='';
-
   return { artistName, title, year:'', price, h, b, d, tech, notes:'', photoData };
 }
 
@@ -758,91 +1013,79 @@ async function saveImportedArtworks(){
     importedArtworks.forEach((a,i)=>{
       const ref = fdb.collection('artworks').doc();
       batch.set(ref,{
-        userId: me.uid,
-        artistName: a.artistName||'',
-        title: a.title||'',
-        year: a.year||'',
-        price: a.price||'',
-        h: a.h||'', b: a.b||'', d: a.d||'',
-        tech: a.tech||'', notes: a.notes||'',
-        photoData: a.photoData||'',
-        sortOrder: maxO + i + 1,
+        userId: me.uid, artistName: a.artistName||'', title: a.title||'',
+        year: a.year||'', price: a.price||'', h: a.h||'', b: a.b||'', d: a.d||'',
+        tech: a.tech||'', notes: a.notes||'', photoData: a.photoData||'',
+        inExhibition: false, sortOrder: maxO + i + 1,
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       });
     });
     await batch.commit();
     toast(`${importedArtworks.length} opere importate ✓`);
-    closeImportModal();
-    await loadAll();
-  }catch(e){
-    alert('Errore salvataggio: '+e.message);
-  }
+    closeImportModal(); await loadAll();
+  }catch(e){ alert('Errore salvataggio: '+e.message); }
   resetBtn('import-save-btn','Salva tutte le opere');
 }
 
 /* ---- PRINT SINGLE ---- */
 function printSingle(id){
   const a = artworks.find(x=>x.id===id); if(!a) return;
-  const dims = [a.h?'H '+a.h:null,a.b?'B '+a.b:null,a.d?'P '+a.d:null].filter(Boolean).join(' × ');
-  const price = a.price ? '€ '+Number(a.price).toLocaleString('it-IT',{minimumFractionDigits:2,maximumFractionDigits:2}) : '';
+  const d = dims(a);
+  const price = a.price ? fmtP(a.price) : '';
   const today = new Date().toLocaleDateString('it-IT',{year:'numeric',month:'long',day:'numeric'});
+  const certNum = a.certNum || '—';
+  const logoHtml = hdr.logo
+    ? `<img style="max-height:54px;max-width:180px;object-fit:contain;display:block;margin-bottom:5px" src="${hdr.logo}" alt=""><div style="font-size:11px;color:#888">${hdr.subtitle||''}</div>`
+    : `<div style="font-size:17px;font-weight:700;letter-spacing:.03em">${hdr.title||'The Project Space'}</div><div style="font-size:11px;color:#888;margin-top:2px">${hdr.subtitle||''}</div>`;
   const win = window.open('','_blank','width=900,height=700');
   win.document.write(`<!DOCTYPE html>
 <html lang="it"><head><meta charset="UTF-8"><title>${a.title||'Opera'}</title>
 <style>
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Segoe UI',Arial,sans-serif;background:#fff;color:#111}
-  .page{max-width:794px;margin:0 auto;padding:40px 50px;min-height:297mm}
-  .header{border-bottom:2px solid #111;padding-bottom:16px;margin-bottom:30px;display:flex;justify-content:space-between;align-items:flex-end}
-  .gallery{font-size:13px;color:#555}
-  .gallery strong{display:block;font-size:16px;color:#111;font-weight:700;letter-spacing:.02em}
-  .date{font-size:11px;color:#aaa}
-  .artwork-img{width:100%;max-height:420px;object-fit:contain;background:#f8f8f8;display:block;margin-bottom:32px}
-  .no-img{width:100%;height:300px;background:#f2f2f2;display:flex;align-items:center;justify-content:center;color:#ccc;font-size:14px;margin-bottom:32px}
-  .info{border-top:1px solid #eee;padding-top:24px}
-  .title{font-size:28px;font-weight:400;font-style:italic;font-family:Georgia,serif;margin-bottom:6px}
-  .artist{font-size:16px;color:#333;margin-bottom:20px;font-weight:600}
-  .meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 40px;margin-bottom:24px}
-  .meta-item label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:#aaa;display:block;margin-bottom:3px}
-  .meta-item span{font-size:14px;color:#111}
-  .price-box{border-top:1px solid #eee;padding-top:20px;margin-top:8px}
-  .price-box label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#aaa;display:block;margin-bottom:4px}
-  .price-box span{font-size:26px;font-weight:700;color:#111}
-  .notes{margin-top:20px;font-size:13px;color:#666;font-style:italic;border-top:1px solid #eee;padding-top:16px}
-  .footer{position:fixed;bottom:20px;left:50px;right:50px;font-size:10px;color:#ccc;text-align:center;border-top:1px solid #eee;padding-top:8px}
-  @media print{
-    body{background:#fff}
-    .footer{position:fixed;bottom:10mm}
-    @page{size:A4 portrait;margin:15mm 12mm}
-  }
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#fff;color:#111}
+.page{max-width:794px;margin:0 auto;padding:36px 50px;min-height:297mm}
+.header{border-bottom:2px solid #111;padding-bottom:16px;margin-bottom:28px;display:flex;justify-content:space-between;align-items:flex-end}
+.cert-info{text-align:right;font-size:11px;color:#aaa}
+.cert-num{font-size:14px;font-weight:700;color:#111;margin-top:3px}
+.artwork-img{width:100%;max-height:400px;object-fit:contain;background:#f8f8f8;display:block;margin-bottom:28px;border:1px solid #eee}
+.no-img{width:100%;height:260px;background:#f2f2f2;display:flex;align-items:center;justify-content:center;color:#ccc;font-size:14px;margin-bottom:28px}
+.title{font-size:26px;font-weight:400;font-style:italic;font-family:Georgia,serif;margin-bottom:6px}
+.artist{font-size:15px;font-weight:700;color:#333;margin-bottom:20px}
+.meta-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px 24px;margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid #eee}
+.meta-item label{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:#aaa;display:block;margin-bottom:3px}
+.meta-item span{font-size:13px;color:#111}
+.price-box{border-bottom:1px solid #eee;padding-bottom:22px;margin-bottom:28px}
+.price-box label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#aaa;display:block;margin-bottom:4px}
+.price-box span{font-size:26px;font-weight:700;color:#111}
+.notes{font-size:12px;color:#666;font-style:italic;margin-bottom:28px}
+.sign{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-bottom:28px}
+.sign-box{border-top:1px solid #ccc;padding-top:10px}
+.sign-label{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:#bbb}
+.sign-line{height:44px}
+.footer{border-top:1px solid #eee;padding-top:12px;font-size:10px;color:#bbb;text-align:center;font-family:Georgia,serif}
+@media print{@page{size:A4 portrait;margin:12mm}}
 </style></head>
-<body>
-<div class="page">
-  <div class="header">
-    <div class="gallery">
-      <strong>${hdr.title||'Catalogo Opere'}</strong>
-      ${hdr.subtitle||''}
-    </div>
-    <div class="date">${today}</div>
-  </div>
-  ${a.photoData
-    ? `<img class="artwork-img" src="${a.photoData}" alt="${a.title||''}">`
-    : `<div class="no-img">Nessuna immagine</div>`}
-  <div class="info">
-    <div class="title">${a.title||'Senza titolo'}</div>
-    <div class="artist">${a.artistName||''}</div>
-    <div class="meta-grid">
-      ${a.year?`<div class="meta-item"><label>Anno</label><span>${a.year}</span></div>`:''}
-      ${a.tech?`<div class="meta-item"><label>Tecnica</label><span>${a.tech}</span></div>`:''}
-      ${dims?`<div class="meta-item"><label>Dimensioni</label><span>${dims} cm</span></div>`:''}
-    </div>
-    ${price?`<div class="price-box"><label>Prezzo al pubblico</label><span>${price}</span></div>`:''}
-    ${a.notes?`<div class="notes">${a.notes}</div>`:''}
-  </div>
-  <div class="footer">${hdr.footer||''}</div>
+<body><div class="page">
+<div class="header">
+  <div>${logoHtml}</div>
+  <div class="cert-info">Certificato di autenticità<div class="cert-num">N° ${certNum}</div></div>
 </div>
-<script>window.onload=()=>{window.print();}<\/script>
-</body></html>`);
+${a.photoData?`<img class="artwork-img" src="${a.photoData}" alt="">`:`<div class="no-img">Nessuna immagine</div>`}
+<div class="title">${a.title||'Senza titolo'}</div>
+<div class="artist">${a.artistName||''}</div>
+<div class="meta-grid">
+  ${a.year?`<div class="meta-item"><label>Anno</label><span>${a.year}</span></div>`:''}
+  ${a.tech?`<div class="meta-item"><label>Tecnica</label><span>${a.tech}</span></div>`:''}
+  ${d?`<div class="meta-item"><label>Dimensioni</label><span>${d} cm</span></div>`:''}
+</div>
+${price?`<div class="price-box"><label>Valore dell'opera</label><span>${price}</span></div>`:''}
+${a.notes?`<div class="notes">${a.notes}</div>`:''}
+<div class="sign">
+  <div class="sign-box"><div class="sign-label">Firma dell'artista</div><div class="sign-line"></div></div>
+  <div class="sign-box"><div class="sign-label">Timbro e firma galleria</div><div class="sign-line"></div></div>
+</div>
+<div class="footer">${hdr.footer||hdr.subtitle||''} &nbsp;·&nbsp; ${today}</div>
+</div><script>window.onload=()=>{window.print();}<\/script></body></html>`);
   win.document.close();
 }
 
