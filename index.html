@@ -923,13 +923,36 @@ function printAutentica(id){
   var a = artworks.find(x=>x.id===id); if(!a) return;
   function fmtP(p){ return '€ '+Number(p).toLocaleString('it-IT',{minimumFractionDigits:2,maximumFractionDigits:2}); }
   var dims = [a.h?'H '+a.h:null,a.b?'B '+a.b:null,a.d?'P '+a.d:null].filter(Boolean).join(' x ');
-  var today = new Date().toLocaleDateString('it-IT',{year:'numeric',month:'long',day:'numeric'});
 
-  var css = '*{box-sizing:border-box;margin:0;padding:0}body{font-family:Segoe UI,Arial,sans-serif;background:#e8e8e8;color:#111}.page{background:#fff;width:210mm;min-height:297mm;margin:20px auto;padding:16mm 20mm;display:flex;flex-direction:column;box-shadow:0 2px 12px rgba(0,0,0,.12)}.top{text-align:center;border-bottom:2px solid #111;padding-bottom:16px;margin-bottom:24px}.logo-area{margin-bottom:8px}.gallery-name{font-size:18px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}.gallery-sub{font-size:12px;color:#888;margin-top:2px}.cert-title{font-size:13px;text-transform:uppercase;letter-spacing:.15em;color:#888;margin:24px 0 8px;font-weight:600}.cert-body{flex:1;display:flex;flex-direction:column;align-items:center}.thumb-wrap{margin-bottom:20px;text-align:center;width:100%}.thumb-wrap img{max-width:100%;max-height:130mm;object-fit:contain;display:block;margin:0 auto;background:#fafafa}.no-thumb{width:100%;height:120mm;background:#f2f2f2;border:1px solid #ddd;display:inline-flex;align-items:center;justify-content:center;color:#ccc;font-size:12px}.info-table{width:100%;max-width:440px;border-collapse:collapse;margin-bottom:28px}.info-table tr td{padding:8px 0;font-size:13px;vertical-align:top;border-bottom:1px solid #f0f0f0}.info-table tr:last-child td{border-bottom:none}.info-table .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:#aaa;width:110px;padding-right:16px}.info-table .val{font-size:14px;color:#111;font-weight:500}.cert-text{font-size:12px;color:#888;text-align:center;font-style:italic;max-width:400px;line-height:1.7;margin-bottom:32px}.signatures{display:grid;grid-template-columns:1fr 1fr;gap:40px;width:100%;max-width:440px;margin-bottom:24px}.sig-box{text-align:center}.sig-line{border-top:1px solid #111;margin-bottom:6px;margin-top:40px}.sig-label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:#aaa}.footer{border-top:1px solid #eee;padding-top:10px;text-align:center;font-size:10px;color:#aaa;font-family:Georgia,serif}@media print{body{background:#fff}.page{box-shadow:none;margin:0;width:100%;min-height:297mm}@page{size:A4 portrait;margin:10mm}}';
+  var css = [
+    '*{box-sizing:border-box;margin:0;padding:0}',
+    'body{font-family:Segoe UI,Arial,sans-serif;background:#e8e8e8;color:#111}',
+    '.page{background:#fff;width:210mm;min-height:297mm;margin:20px auto;padding:16mm 20mm;display:flex;flex-direction:column;box-shadow:0 2px 12px rgba(0,0,0,.12)}',
+    '.top{text-align:center;border-bottom:2px solid #111;padding-bottom:14px;margin-bottom:20px}',
+    '.gallery-name{font-size:17px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}',
+    '.gallery-sub{font-size:12px;color:#888;margin-top:3px}',
+    '.cert-title{font-size:11px;text-transform:uppercase;letter-spacing:.18em;color:#aaa;margin:0 0 16px;font-weight:600;text-align:center}',
+    '.cert-body{flex:1;display:flex;flex-direction:column;align-items:center}',
+    '.thumb-wrap{width:100%;text-align:center;margin-bottom:20px}',
+    '.thumb-wrap img{max-width:100%;max-height:130mm;object-fit:contain;display:block;margin:0 auto;background:#fafafa}',
+    '.no-thumb{width:100%;height:120mm;background:#f2f2f2;display:flex;align-items:center;justify-content:center;color:#ccc;font-size:13px}',
+    '.info-table{width:100%;max-width:440px;border-collapse:collapse;margin:0 auto 20px}',
+    '.info-table td{padding:6px 0;font-size:13px;vertical-align:top;border-bottom:1px solid #f0f0f0}',
+    '.info-table tr:last-child td{border-bottom:none}',
+    '.info-table .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:#aaa;width:110px;padding-right:16px}',
+    '.info-table .val{font-size:14px;color:#111;font-weight:500}',
+    '.cert-text{font-size:12px;color:#888;text-align:center;font-style:italic;max-width:400px;line-height:1.7;margin:0 auto 24px}',
+    '.sig-area{display:grid;grid-template-columns:1fr 1fr 1fr;gap:30px;width:100%;margin-bottom:20px}',
+    '.sig-box{text-align:center}',
+    '.sig-line{border-top:1px solid #111;margin-bottom:6px;margin-top:36px}',
+    '.sig-label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:#aaa}',
+    '.footer{border-top:1px solid #eee;padding-top:8px;text-align:center;font-size:10px;color:#aaa;font-family:Georgia,serif}',
+    '@media print{body{background:#fff}.page{box-shadow:none;margin:0;width:100%;min-height:297mm}@page{size:A4 portrait;margin:10mm}}'
+  ].join('');
 
-  var html = '<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8"><title>Autentica - '+( a.title||'Opera')+'</title><style>'+css+'</style></head><body><div class="page">';
+  var html = '<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8"><title>Autentica</title><style>'+css+'</style></head><body><div class="page">';
   html += '<div class="top">';
-  if(hdr.logo) html += '<div class="logo-area"><img src="'+hdr.logo+'" style="max-height:50px;max-width:180px;object-fit:contain"></div>';
+  if(hdr.logo) html += '<img src="'+hdr.logo+'" style="max-height:50px;max-width:180px;object-fit:contain;display:block;margin:0 auto 10px">';
   html += '<div class="gallery-name">'+(hdr.title||'Catalogo Opere')+'</div>';
   if(hdr.subtitle) html += '<div class="gallery-sub">'+hdr.subtitle+'</div>';
   html += '</div>';
@@ -947,9 +970,10 @@ function printAutentica(id){
   if(a.year) html += '<tr><td class="lbl">Anno</td><td class="val">'+a.year+'</td></tr>';
   if(a.notes) html += '<tr><td class="lbl">Note</td><td class="val" style="font-style:italic;color:#666">'+a.notes+'</td></tr>';
   html += '</table>';
-  html += '<p class="cert-text">Si certifica che l’opera sopra descritta è un originale dell’artista<br>e è stata registrata presso '+( hdr.title||'la galleria')+' in data '+today+'.</p>';
-  html += '<div class="signatures">';
+  html += '<p class="cert-text">Si certifica che l’opera sopra descritta è un originale dell’artista.</p>';
+  html += '<div class="sig-area">';
   html += '<div class="sig-box"><div class="sig-line"></div><div class="sig-label">Firma dell’Artista</div></div>';
+  html += '<div class="sig-box"><div class="sig-line"></div><div class="sig-label">Data</div></div>';
   html += '<div class="sig-box"><div class="sig-line"></div><div class="sig-label">Firma della Galleria</div></div>';
   html += '</div>';
   html += '</div>';
@@ -965,7 +989,7 @@ function printAutentica(id){
 function g(id){return document.getElementById(id)?.value?.trim()||'';}
 function sv(id,val){const el=document.getElementById(id);if(el)el.value=val;}
 function set(id,txt){const el=document.getElementById(id);if(el)el.textContent=txt;}
-function setBtnLoading(id,txt){const b=document.getElementById(id);if(b){b.disabled=true;b.innerHTML=`<span class="spinner"></span>${txt}`;}}
+function setBtnLoading(id,txt){const b=document.getElementById(id);if(b){b.disabled=true;b.innerHTML='<span class="spinner"></span>'+txt;}}
 function resetBtn(id,txt){const b=document.getElementById(id);if(b){b.disabled=false;b.textContent=txt;}}
 function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.style.display='block';clearTimeout(el._t);el._t=setTimeout(()=>el.style.display='none',2800);}
 </script>
